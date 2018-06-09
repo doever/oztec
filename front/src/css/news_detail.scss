@@ -1,4 +1,106 @@
 @import "head.scss";
 @import "body.scss";
 @import "foot.scss";
+@import "constants.scss";
 
+.main .wrapper .news-wrapper {
+  background-color: #fff;
+  padding: 20px;
+  box-sizing: border-box;
+  .content-news {
+    img {
+      max-width: 100%;
+    }
+    .title {
+      color: $mainFontColor;
+      font-size: 24px;
+      font-weight: 400;
+    }
+    .news-info-group {
+      margin-top: 20px;
+      overflow: hidden;
+      font-size: 14px;
+      color: $assistFontColor;
+      line-height: 30px;
+      .info-group {
+        float: left;
+        .pub-time {
+          margin-left: 20px;
+        }
+        .category {
+          margin-left: 20px;
+          background-color: $themeColor;
+          color: #FFF;
+          padding: 5px;
+          border-radius: 2px;
+        }
+      }
+      .sharing-group {
+        float: right;
+        overflow: hidden;
+        span {
+          float: left;
+          height: 30px;
+        }
+        .weixin {
+          float: left;
+          width: 30px;
+          height: 30px;
+          background: url("https://www.xfz.cn/static/build/images/share.png") no-repeat 0 0;
+          background-size: 200%;
+        }
+        .weibo {
+          float: left;
+          width: 30px;
+          height: 30px;
+          background: url("https://www.xfz.cn/static/build/images/share.png") no-repeat -30px 0;
+          background-size: 200%;
+        }
+      }
+    }
+  }
+  .comment-group{
+    border-top: 1px solid $lineColor;
+    margin-top: 20px;
+    padding-top: 20px;
+    h2{
+      font-size: 18px;
+      color: $mainFontColor;
+      font-weight: 400;
+    }
+    .comment{
+      margin-top: 10px;
+      width: 100%;
+      height: 40px;
+      padding: 6px 10px;
+      border: 1px solid #CCC;
+      box-sizing: border-box;
+      outline: none;
+      resize: none;
+      overflow: hidden;
+      line-height: 26px;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+    .nologin-comment{
+      height: 40px;
+      line-height: 26px;
+      overflow: hidden;
+    }
+    .login-comment{
+      height: 80px;
+    }
+    div {
+      margin-top: 20px;
+      text-align: right;
+      .submit-btn{
+        background-color: $themeColor;
+        border: none;
+        color: #FFF;
+        padding: 8px;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+    }
+  }
+}
