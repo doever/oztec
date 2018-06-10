@@ -103,4 +103,39 @@
       }
     }
   }
+  .comment-list{
+    margin-top: 20px;
+    li{
+      border-bottom: 1px solid $lineColor;
+      padding: 10px 0;
+    }
+    .comment-info{
+      overflow: hidden;
+      height: 40px;
+      line-height: 40px;
+      .avatar{
+        float: left;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+      }
+      .author{
+        float: left;
+        color: $assistFontColor;
+        margin-left: 14px;
+        font-size: 14px;
+      }
+      .pub-time{
+        float: right;
+        color: $assistFontColor;
+        font-size: 14px;
+      }
+    }
+    .comment-context{
+      font-size: 14px;
+      color: $mainFontColor;
+      margin-left: 54px;
+      margin-top: 5px;
+    }
+  }
 }
