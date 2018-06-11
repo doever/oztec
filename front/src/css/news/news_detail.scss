@@ -1,7 +1,7 @@
-@import "head.scss";
-@import "body.scss";
-@import "foot.scss";
-@import "constants.scss";
+@import "../common/head.scss";
+@import "../common/body.scss";
+@import "../common/foot.scss";
+@import "../common/constants.scss";
 
 .main .wrapper .news-wrapper {
   background-color: #fff;
