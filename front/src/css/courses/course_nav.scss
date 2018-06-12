@@ -1,0 +1,46 @@
+@import "../common/constants.scss";
+
+.main{
+    width: 100%;
+    margin-top: $navHeight;
+    .course-nav-out{
+        width: 100%;
+        background-color: #fff;
+        //border-bottom: 1px solid $lineColor;
+        //background-color: pink;
+        box-shadow: 0 4px 5px rgba(0,0,0,0.1);
+        .course-nav-inner{
+            width: $pageWidth;
+            margin: 0 auto;
+            height: 54px;
+            line-height: 54px;
+            overflow: hidden;
+            .course-title{
+                float: left;
+                font-size: 24px;
+                font-weight: 400;
+                color: #696969;
+            }
+            .course-catagory{
+                float: left;
+                margin-left: 100px;
+                li{
+                    float: left;
+                    margin-right: 40px;
+                    a{
+                        color: #888;
+                        font-size: 16px;
+                    }
+                    &.active{
+                        a{
+                            color:$mainFontColor;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .wrapper{
+        width: 100%;
+    }
+}
