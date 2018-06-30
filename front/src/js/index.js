@@ -1,3 +1,4 @@
+//轮播图
 function Banner() {
     this.bannerWidth = 798;
     this.bannerGroup = $("#banner-group");
@@ -49,6 +50,7 @@ Banner.prototype.toggleArrow = function (isShow) {
 
 Banner.prototype.animate = function () {
     var self = this;
+    self.bannerUl.animate({"left":-798*self.index},500);
     var index = self.index;
     if(index===0){
         index = self.bannerCount-1;
@@ -57,7 +59,6 @@ Banner.prototype.animate = function () {
     }else{
         index = self.index-1;
     }
-    self.bannerUl.animate({"left":-798*self.index},500);
     self.pageControl.children("li").eq(index).addClass("active").siblings().removeClass("active");
 };
 

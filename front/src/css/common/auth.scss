@@ -92,20 +92,25 @@
               }
               .input-group-addon{
                 float: right;
+                cursor: pointer;
                 img{
                   height: 40px;
                   width: 100px;
                   background-color: $themeColor;
                 }
                 .sms-captcha-btn{
-                  background-color:$themeColor;
+                  background-color: $themeColor;
                   height: 40px;
                   width: 100px;
                   display: inline-block;
                   text-align: center;
                   line-height: 40px;
-                  color: #FFFFFF;
+                  color: #FFF;
                   box-sizing: border-box;
+                }
+                .disabled{
+                  background-color:#ccc;
+                  color:#666;
                 }
               }
             }

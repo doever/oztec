@@ -44,7 +44,7 @@ gulp.task("js",function () {
        .pipe(rename({"suffix":".min"}))
        .pipe(sourcemaps.write())
        .pipe(gulp.dest(path.js_dist))
-        .pipe(bs.stream())
+       .pipe(bs.stream())
 });
 
 //定义一个压缩图片的任务
@@ -52,7 +52,7 @@ gulp.task("images",function () {
    gulp.src(path.images+"*.*")
        .pipe(cache(imagemin()))
        .pipe(gulp.dest(path.images_dist))
-        .pipe(bs.stream())
+       .pipe(bs.stream())
 });
 
 //定义监听文件修改的任务
@@ -73,4 +73,5 @@ gulp.task("bs",function () {
 });
 
 //创建一个默认的任务
-gulp.task("default",['bs','watch']);
+// gulp.task("default",['bs','watch']);
+gulp.task("default",['watch']);
