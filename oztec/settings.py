@@ -84,8 +84,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'oztec',
-        'USER': 'root',
-        'PASSWORD': 'cl',
+        'USER': 'django',
+        'PASSWORD': 'hello',
         'HOST': '127.0.0.1',
         'PORT': '3306'
     }
