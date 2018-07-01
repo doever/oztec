@@ -1,5 +1,5 @@
 # packages
-# /front/node_modules/**
+/front/node_modules/**
 /front/dist/adminlte/**
 
 # staticfiles
