@@ -25,7 +25,8 @@ SECRET_KEY = '2np+9u0o2$8c&_+!hu5x29v=*@zjlo0#ftk_f#h$(29f1a55m_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# unbuntu主机地址
+ALLOWED_HOSTS = ['192.168.1.110']
 
 
 # Application definition
