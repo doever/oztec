@@ -7,9 +7,9 @@ from utils import restful
 from django.shortcuts import render,redirect,reverse
 from utils.captcha.ozcaptcha import Captcha
 from io import BytesIO
-#from utils.aliyunsmssdk import aliyunsms
-#from apps.ozauth.models import User
-
+from utils.aliyunsmssdk import aliyunsms
+from apps.ozauth.models import User
+from django.core.cache import cache
 
 def add_user(request):
     username='long'
@@ -55,10 +55,9 @@ def img_captcha(request):
     out = BytesIO()
     image.save(out,'png')
     out.seek(0)
-
+    cache.set(text.upper(),text.upper(),5*60)
     response = HttpResponse(content_type='image/png')
     response.write(out.read())
-    # 持久连接传递Content-length
     response['Content-length'] = out.tell()
     return response
 
@@ -67,4 +66,10 @@ def sms_code(request):
     telephone = request.GET.get('telephone')
     code = Captcha.gene_text()
     aliyunsms.send_sms(phone_numbers=telephone,code=code)
+    cache.set(telephone,code,5*60)
     return restful.ok()
+
+def test_cache(request):
+    cache.set('username','chilo',60)
+    username=cache.get('username')
+    return HttpResponse(username)

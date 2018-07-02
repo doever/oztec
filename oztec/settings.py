@@ -26,7 +26,7 @@ SECRET_KEY = '2np+9u0o2$8c&_+!hu5x29v=*@zjlo0#ftk_f#h$(29f1a55m_'
 DEBUG = True
 
 # unbuntu主机地址
-ALLOWED_HOSTS = ['192.168.1.110']
+ALLOWED_HOSTS = ['192.168.1.110','127.0.0.1']
 
 
 # Application definition
@@ -89,6 +89,14 @@ DATABASES = {
         'PASSWORD': 'hello',
         'HOST': '127.0.0.1',
         'PORT': '3306'
+    }
+}
+
+CACHES = {
+    'default':{
+        'BACKEND':'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION':'127.0.0.1:11211',
+        'KEY_FUNCTION':lambda key,key_prefix,version:"django:"+key
     }
 }
 
