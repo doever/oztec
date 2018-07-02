@@ -1,0 +1,11 @@
+2018-07-02 08:23:13,691 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2018-07-02 08:23:13,697 INFO daemonizing the supervisord process
+2018-07-02 08:23:13,698 INFO supervisord started with pid 28735
+2018-07-02 08:23:14,707 INFO spawned: 'oztec' with pid 28736
+2018-07-02 08:23:14,744 INFO success: oztec entered RUNNING state, process has stayed up for > than 0 seconds (startsecs)
+2018-07-02 08:39:59,269 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2018-07-02 08:39:59,281 INFO RPC interface 'supervisor' initialized
+2018-07-02 08:39:59,285 INFO daemonizing the supervisord process
+2018-07-02 08:39:59,288 INFO supervisord started with pid 28823
+2018-07-02 08:40:00,293 INFO spawned: 'oztec' with pid 28824
+2018-07-02 08:40:00,306 INFO success: oztec entered RUNNING state, process has stayed up for > than 0 seconds (startsecs)

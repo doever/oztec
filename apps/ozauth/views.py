@@ -7,8 +7,8 @@ from utils import restful
 from django.shortcuts import render,redirect,reverse
 from utils.captcha.ozcaptcha import Captcha
 from io import BytesIO
-from utils.aliyunsmssdk import aliyunsms
-from apps.ozauth.models import User
+#from utils.aliyunsmssdk import aliyunsms
+#from apps.ozauth.models import User
 
 
 def add_user(request):
