@@ -1,22 +1,25 @@
+from io import BytesIO
+
 from django.contrib.auth import logout,login,authenticate
 from django.contrib.auth.decorators import permission_required
 from django.views.decorators.http import require_POST
 from django.http import HttpResponse,JsonResponse
-from .forms import LoginForm
-from utils import restful
-from django.shortcuts import render,redirect,reverse
-from utils.captcha.ozcaptcha import Captcha
-from io import BytesIO
-from utils.aliyunsmssdk import aliyunsms
-from apps.ozauth.models import User
 from django.core.cache import cache
+from django.shortcuts import render,redirect,reverse
+
+from .forms import LoginForm,RegisterForm
+from apps.ozauth.models import User
+from utils.captcha.ozcaptcha import Captcha
+from utils import restful
+from utils.aliyunsmssdk import aliyunsms
+
 
 def add_user(request):
-    username='long'
-    telephone='15122223333'
-    password='111111'
+    username = 'long'
+    telephone = '15122223333'
+    password = '111111'
     email = '1584@12com'
-    User.object.create_user(username=username,password=password,telephone=telephone,email=email)
+    User.objects.create_user(username=username,password=password,telephone=telephone,email=email)
     return HttpResponse('成功')
 
 
@@ -45,9 +48,11 @@ def login_view(request):
         errors = forms.get_errors()
         return restful.params_error(message=errors)
 
+
 def logout_view(request):
     logout(request)
     return redirect(reverse('index'))
+
 
 # 生成验证码
 def img_captcha(request):
@@ -55,7 +60,7 @@ def img_captcha(request):
     out = BytesIO()
     image.save(out,'png')
     out.seek(0)
-    cache.set(text.upper(),text.upper(),5*60)
+    cache.set(text.lower(),text.lower(),5*60)
     response = HttpResponse(content_type='image/png')
     response.write(out.read())
     response['Content-length'] = out.tell()
@@ -66,10 +71,25 @@ def sms_code(request):
     telephone = request.GET.get('telephone')
     code = Captcha.gene_text()
     aliyunsms.send_sms(phone_numbers=telephone,code=code)
-    cache.set(telephone,code,5*60)
+    cache.set(telephone,code.lower(),5*60)
     return restful.ok()
+
+
+@require_POST
+def register(request):
+    form = RegisterForm(request.POST)
+    if form.is_valid():
+        telephone = form.cleaned_data.get('telephone')
+        password = form.cleaned_data.get('password')
+        username = form.cleaned_data.get('username')
+        user = User.objects.create_user(telephone=telephone,password=password,username=username)
+        login(request,user)
+        return restful.ok()
+    else:
+        return restful.params_error(message=form.get_errors())
+
 
 def test_cache(request):
     cache.set('username','chilo',60)
-    username=cache.get('username')
+    username = cache.get('username')
     return HttpResponse(username)

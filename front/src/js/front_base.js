@@ -17,11 +17,6 @@ FrontBase.prototype.listenAuthBoxHover = function(){
     })
 };
 
-$(function () {
-    var frontbase = new FrontBase();
-    frontbase.run();
-});
-
 
 
 //处理登录相关功能
@@ -48,6 +43,7 @@ Auth.prototype.run = function () {
     this.listenAuthBoxClickEvent();
     this.listenSwitchEvent();
     this.listenSignIn();
+    this.listenSignUp();
     this.listenImgCaptchaEvent();
     this.listenSmsCaptchaEvent();
 };
@@ -129,8 +125,56 @@ Auth.prototype.listenSignIn = function(){
                 }
 
             },
-            'fail':function (error) {
+            'error':function (error) {
                 console.log(error);
+            }
+        })
+    })
+};
+
+Auth.prototype.listenSignUp = function (){
+    var self =this;
+    var signupInput = $('.signup-group').find('.submit-btn');
+    signupInput.click(function (event) {
+        event.preventDefault();
+        var telephone = $('.signup-group input[name=telephone]').val();
+        var username = $('.signup-group input[name=username]').val();
+        var img_captcha = $('.signup-group input[name=img_captcha]').val();
+        var password = $('.signup-group input[name=password]').val();
+        var re_password = $('.signup-group input[name=re_password]').val();
+        var sms_captcha = $('.signup-group input[name=sms_captcha]').val();
+        csrfajax.post({
+            'url':'/account/register/',
+            'data':{
+                'telephone':telephone,
+                'username':username,
+                'img_captcha':img_captcha,
+                'password':password,
+                're_password':re_password,
+                'sms_captcha':sms_captcha
+            },
+            'success':function (result) {
+                if(result['code']===200){
+                    console.log(result);
+                    self.hiddenEvent();
+                    window.location.reload();
+                }else{
+                    var messageObj = result['message'];
+                    if(typeof messageObj =='string' || messageObj.constructor == String){
+                        window.messageBox.show(messageObj);
+                    }else{
+                        // {'password':['xxx','sss']}
+                        for(var key in messageObj){
+                            var messages = messageObj[key];
+                            var message = messages[0];
+                            window.messageBox.show(message);
+                        }
+                    }
+                }
+
+            },
+            'error':function (error) {
+                window.alert('服务器错误')
             }
         })
     })
@@ -190,5 +234,7 @@ Auth.prototype.listenSmsCaptchaEvent = function(){
 
 $(function () {
     var auth = new Auth();
+    var frontbase = new FrontBase();
     auth.run();
+    frontbase.run();
 });

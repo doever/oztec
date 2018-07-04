@@ -1,0 +1,49 @@
+{% extends 'adminlte/base.html' %}
+
+{% block content-title %}
+    发布新闻
+{% endblock %}
+
+{% block content-path %}
+新闻分类
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/news_category.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <button class="btn btn-primary pull-right" id="add_category">新增分类</button>
+                </div>
+                <div class="box-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>分类名称</th>
+                                <th>新闻数量</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for category in categorys %}
+                            <tr data-pk="{{ category.id }}">
+                                <td>{{ category.name }}</td>
+                                <td>{{ category.nums }}</td>
+                                <td>
+                                    <button class="btn btn-warning btn-xs edit_category">编辑</button>
+                                    <button class="btn btn-danger btn-xs">删除</button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

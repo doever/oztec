@@ -24,7 +24,38 @@ var csrfajax = {
         this._ajaxSetup();
         this.ajax(args);
     },
+    'put': function (args) {
+        args['method'] = 'put';
+        this._ajaxSetup();
+        this.ajax(args);
+    },
+    'delete': function (args) {
+        args['method'] = 'delete';
+        // this._ajaxSetup();
+        this.ajax(args);
+    },
     'ajax': function (args) {
+        // var success = args['success'];
+        // args['success'] = function(result){
+        //     if(result['code']===200){
+        //         if (success){
+        //             success(result);
+        //         }
+        //         else{
+        //             var messageObj = result['message'];
+        //             if(typeof messageObj =='string' || messageObj.constructor == String){
+        //                 window.messageBox.show(messageObj);
+        //             }else{
+        //                 // {'password':['xxx','sss']}
+        //                 for(var key in messageObj){
+        //                     var messages = messageObj[key];
+        //                     var message = messages[0];
+        //                     window.messageBox.show(message);
+        //                 }
+        //             }
+        //         }
+        //     }
+        // };
         $.ajax(args);
     },
     '_ajaxSetup': function () {

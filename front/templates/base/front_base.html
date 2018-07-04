@@ -31,8 +31,10 @@
                     <a class="authenticated-box">{{ user.username }}</a>
                     <div class="user-more-box">
                         <i class="triangle"></i>
-                        <a href="#">管理系统</a>
-                        <a href="{% url 'ozauth:logout' %}">退出登录</a>
+                        {% if user.is_staff %}
+                            <a href="#">管理系统</a>
+                        {% endif %}
+                            <a href="{% url 'ozauth:logout' %}">退出登录</a>
                     </div>
                 {% else %}
                     <a class="signin-btn">登录</a>/<a class="signup-btn">注册</a>
@@ -96,7 +98,7 @@
                             </div>
                             <div class="input-group">
                                 <div class="short-input-group">
-                                    <input type="text" class="form-control" name="sms-captcha" placeholder="短信验证码">
+                                    <input type="text" class="form-control" name="sms_captcha" placeholder="短信验证码">
                                 </div>
                                 <div class="input-group-addon">
                                     <span class="sms-captcha-btn">发送短信</span>

@@ -2,7 +2,15 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../../code/CRMTOOL/.idea/CRMTOOL.iml" filepath="$PROJECT_DIR$/../../code/CRMTOOL/.idea/CRMTOOL.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../mxonline/MxOnlie/.idea/MxOnline.iml" filepath="$PROJECT_DIR$/../mxonline/MxOnlie/.idea/MxOnline.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../code/QMS/.idea/QMS.iml" filepath="$PROJECT_DIR$/../../code/QMS/.idea/QMS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../code/fullpart/.idea/fullpart.iml" filepath="$PROJECT_DIR$/../../code/fullpart/.idea/fullpart.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../loopapi/.idea/loopapi.iml" filepath="$PROJECT_DIR$/../loopapi/.idea/loopapi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../code/myspider/.idea/myspider.iml" filepath="$PROJECT_DIR$/../../code/myspider/.idea/myspider.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/oztec.iml" filepath="$PROJECT_DIR$/.idea/oztec.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../code/unit_test/.idea/unit_test.iml" filepath="$PROJECT_DIR$/../../code/unit_test/.idea/unit_test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../code/web_design/.idea/web_design.iml" filepath="$PROJECT_DIR$/../../code/web_design/.idea/web_design.iml" />
     </modules>
   </component>
 </project>

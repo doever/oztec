@@ -13,12 +13,17 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
+# from django.contrib import admin
 from django.urls import path, re_path, include
+
 from apps.news import views
+from apps.adminte.views import templateview
+# import xadmin
+
+
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
+    # path('xadmin/', xadmin.site.urls),
     path('',views.index,name='index'),
     path('search/',views.search,name='search'),
     path('news/', include('apps.news.urls', namespace='news')),
@@ -26,4 +31,7 @@ urlpatterns = [
     path('adminlte/', include('apps.adminte.urls', namespace='adminlte')),
     path('courses/',include('apps.courses.urls',namespace='courses')),
     path('payinfo/',include('apps.payinfo.urls',namespace='payinfo')),
+    re_path('templates/(?P<template>.*)/$',templateview,name='template'),
+
+    # re_path(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]

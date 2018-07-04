@@ -21,6 +21,7 @@ class UserManager(BaseUserManager):
 
     def create_superuser(self,telephone,username,password,**kwargs):
         kwargs['is_superuser'] = True
+        kwargs['is_staff'] = True
         return self._create_user(telephone=telephone,username=username,password=password,**kwargs)
 
 class User(AbstractBaseUser,PermissionsMixin):
@@ -37,7 +38,7 @@ class User(AbstractBaseUser,PermissionsMixin):
     REQUIRED_FIELDS = ['username']
     EMAILD_FIELD = 'email'
 
-    object = UserManager()
+    objects = UserManager()
 
     def get_full_name(self):
         return self.username

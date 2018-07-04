@@ -11,10 +11,12 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import sys
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+# sys.path.insert(0,os.path.join(BASE_DIR,'extra_apps'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -41,6 +43,8 @@ INSTALLED_APPS = [
     'apps.ozauth',
     'apps.news',
     'apps.adminte',
+    # 'extra_apps.xadmin',
+    # 'crispy_forms'
 ]
 
 
@@ -96,7 +100,7 @@ CACHES = {
     'default':{
         'BACKEND':'django.core.cache.backends.memcached.MemcachedCache',
         'LOCATION':'127.0.0.1:11211',
-        'KEY_FUNCTION':lambda key,key_prefix,version:"django:"+key
+        # 'KEY_FUNCTION':lambda key,key_prefix,version:"django:"+key
     }
 }
 

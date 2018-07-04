@@ -1,0 +1,50 @@
+{% extends 'adminlte/base.html' %}
+
+{% block content-title %}
+    发布新闻
+{% endblock %}
+
+{% block content-path %}
+发布新闻
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <form action="">
+    <div class="form-group">
+        <label>新闻标题</label>
+        <input type="text" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>新闻分类</label>
+        <select class="form-control" name="" id="">
+            <option value="1">热点</option>
+            <option value="2">创业咨询</option>
+            <option value="3">深度报道</option>
+        </select>
+    </div>
+     <div class="form-group">
+        <label>新闻描述</label>
+        <input type="text" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>新闻图片</label>
+        <div class="input-group">
+            <input type="text" class="form-control">
+            <span class="input-group-btn">
+                <button class="btn btn-default">上传图片</button>
+            </span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>新闻描述</label>
+        <textarea class="form-control" name="" id="" cols="30" rows="10"></textarea>
+    </div>
+    </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

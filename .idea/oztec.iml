@@ -16,6 +16,14 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="jdk" jdkName="Python 3.6 (django2-env)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="loopapi" />
+    <orderEntry type="module" module-name="CRMTOOL" />
+    <orderEntry type="module" module-name="fullpart" />
+    <orderEntry type="module" module-name="QMS" />
+    <orderEntry type="module" module-name="web_design" />
+    <orderEntry type="module" module-name="unit_test" />
+    <orderEntry type="module" module-name="myspider" />
+    <orderEntry type="module" module-name="MxOnline" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />
