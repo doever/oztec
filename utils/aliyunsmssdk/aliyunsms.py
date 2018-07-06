@@ -16,8 +16,8 @@ Created on 2017-06-12
 
 """
 
-ACCESS_KEY_ID="LTAIE5d23ruRsgei"
-ACCESS_KEY_SECRET="3X0zjQdTZquPHyXLmnQwfoZkGljRbx"
+ACCESS_KEY_ID = "your key"
+ACCESS_KEY_SECRET = "your password"
 
 # 注意：不要更改
 REGION = "cn-hangzhou"

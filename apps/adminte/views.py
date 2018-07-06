@@ -46,7 +46,11 @@ class NewsCategory(View):
         return restful.ok()
 
     def delete(self,request):
-        pass
+        qd = QueryDict(request.body)
+        delete_dict = {k: v[0] if len(v) == 1 else v for k, v in qd.lists()}
+        category_id = delete_dict.get("category_id", "")
+        NewCategory.objects.get(pk=category_id).delete()
+        return restful.ok()
 
 
 def categorydetail(request,category_id):

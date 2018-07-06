@@ -32,6 +32,5 @@ urlpatterns = [
     path('courses/',include('apps.courses.urls',namespace='courses')),
     path('payinfo/',include('apps.payinfo.urls',namespace='payinfo')),
     re_path('templates/(?P<template>.*)/$',templateview,name='template'),
-
     # re_path(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]

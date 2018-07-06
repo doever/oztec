@@ -31,7 +31,7 @@ var csrfajax = {
     },
     'delete': function (args) {
         args['method'] = 'delete';
-        // this._ajaxSetup();
+        this._ajaxSetup();
         this.ajax(args);
     },
     'ajax': function (args) {
