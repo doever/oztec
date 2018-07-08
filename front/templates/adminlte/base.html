@@ -40,7 +40,6 @@
     <!-- jQuery 3 -->
     <script src="{% static 'adminlte/bower_components/jquery/dist/jquery.min.js' %}"></script>
     <!-- jQuery UI 1.11.4 -->
-    <script src="{% static 'adminlte/bower_components/jquery-ui/jquery-ui.min.js' %}"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <!-- Bootstrap 3.3.7 -->
     <script src="{% static 'adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
@@ -165,7 +164,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class=""><a href="{% url 'adminlte:news_add' %}"><i class="fa fa-circle-o"></i> 发布新闻</a></li>
+            <li class=""><a href="{% url 'adminlte:write_news' %}"><i class="fa fa-circle-o"></i> 发布新闻</a></li>
             <li><a href="{% url 'adminlte:news_category' %}"><i class="fa fa-circle-o"></i> 新闻分类</a></li>
           </ul>
         </li>

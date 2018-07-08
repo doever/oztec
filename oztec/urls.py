@@ -15,22 +15,24 @@ Including another URLconf
 """
 # from django.contrib import admin
 from django.urls import path, re_path, include
+from django.conf.urls.static import static
+from django.conf import settings
 
 from apps.news import views
 from apps.adminte.views import templateview
 # import xadmin
 
 
-
 urlpatterns = [
     # path('xadmin/', xadmin.site.urls),
     path('',views.index,name='index'),
     path('search/',views.search,name='search'),
+    re_path('templates/(?P<template>.*)/$',templateview,name='template'),
     path('news/', include('apps.news.urls', namespace='news')),
     path('account/',include('apps.ozauth.urls',namespace='ozauth')),
     path('adminlte/', include('apps.adminte.urls', namespace='adminlte')),
     path('courses/',include('apps.courses.urls',namespace='courses')),
     path('payinfo/',include('apps.payinfo.urls',namespace='payinfo')),
-    re_path('templates/(?P<template>.*)/$',templateview,name='template'),
+    path('ueditor/', include('apps.ueditor.urls',namespace='ueditor')),
     # re_path(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-]
+] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

@@ -6,7 +6,8 @@ app_name = 'adminlte'
 urlpatterns = [
     path('login/',views.login_view,name='login'),
     path('backed_index/',views.backed_index,name='backed_index'),
-    path('news_add/',views.news_add,name='news_add'),
+    path('write_news/',views.write_news,name='write_news'),
     path('news_category/',views.NewsCategory.as_view(),name='news_category'),
-    path('category_detail/<category_id>/',views.categorydetail,name='categorydetail')
+    path('category_detail/<category_id>/',views.categorydetail,name='categorydetail'),
+    path('upload_file/',views.upload_file,name='upload_file')
 ]

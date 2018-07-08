@@ -1,6 +1,11 @@
+import os
+
 from django.shortcuts import render
 from django.views.generic import View
 from django.http import QueryDict
+from django.views.decorators.http import require_POST,require_GET
+from django.conf import settings
+import qiniu
 
 from .models import NewCategory
 from utils import restful
@@ -14,8 +19,8 @@ def backed_index(request):
     return render(request, 'adminlte/index.html')
 
 
-def news_add(request):
-    return render(request, 'adminlte/news_add.html')
+def write_news(request):
+    return render(request, 'adminlte/write_news.html')
 
 
 # def news_category(request):
@@ -63,3 +68,26 @@ def templateview(request,template):
     return render(request,'adminlte/%s' % template)
 
 
+@require_POST
+def upload_file(request):
+    file = request.FILES.get('file')
+    name = file.name
+    with open(os.path.join(settings.MEDIA_ROOT,name),'wb') as fp:
+        for chunk in file.chunks():
+            fp.write(chunk)
+    url = request.build_absolute_uri(settings.MEDIA_URL+name)
+    # http://127.0.1:8000/media/abc.jpg
+    return restful.result(data={'url':url})
+
+
+@require_GET
+def qntoken(request):
+    access_key = settings.QINIU_ACCESS_KEY
+    secret_key = settings.QINIU_SECRET_KEY
+
+    bucket = settings.QINIU_BUCKET_NAME
+    q = qiniu.Auth(access_key,secret_key)
+
+    token = q.upload_token(bucket)
+
+    return restful.result(data={"token":token})
