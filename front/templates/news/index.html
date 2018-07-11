@@ -1,4 +1,5 @@
 {% extends 'base/front_base.html' %}
+{% load news_filters %}
 {% block title %}
     首页
 {% endblock %}
@@ -7,6 +8,27 @@
     <link rel="stylesheet" href="{% static 'css/news/index.min.css' %}">
     <link rel="stylesheet" href="//at.alicdn.com/t/font_695382_tt8o9lbnki3haor.css">
     <script src="{% static 'js/index.min.js' %}"></script>
+    <script src="{% static 'webtemplates/template-web.js' %}"></script>
+    <script id='more_news' type="text/html">
+        {% verbatim %}
+            {{ each news new_body index }}
+                <li>
+                    <div class="thumbnail">
+                        <a href="/news/{{ new_body.id }}/"><img src="{{ new_body.thumbnail }}" alt=""></a>
+                    </div>
+                    <div class="news-group">
+                        <p class="title"><a href="/news/{{ new_body.id }}/">{{ new_body.title }}</a></p>
+                        <p class="desc">{{ new_body.desc }}</p>
+                        <p class="more">
+                            <span class="category">{{ new_body.category.name }}</span>
+                            <span class="pub-time">{{ new_body.pub_time|timeSince }}</span>
+                            <span class="author">{{ new_body.author.username }}</span>
+                        </p>
+                    </div>
+                </li>
+            {{ /each }}
+        {% endverbatim %}
+    </script>
 {% endblock %}
 
 {% block main%}
@@ -30,44 +52,31 @@
                 </div>
                 <div class="list-out-group">
                     <ul class="list-tab">
-                        <li class="active"><a href="">最新资讯</a></li>
-                        <li><a href="">热点</a></li>
-                        <li><a href="">深度报道</a></li>
-                        <li><a href="">干活分享</a></li>
-                        <li><a href="">投资人说</a></li>
+                        <li class="active"><a href="javascript:void(0);">最新</a></li>
+                        {% for category in categorys %}
+                            <li data-category="{{ category.id }}"><a href="javascript:void(0);">{{ category.name }}</a></li>
+                        {% endfor %}
                     </ul>
                     <ul class="list-inner-group">
-                        <li>
-                            <div class="thumbnail">
-                                <a href=""><img src="https://static-image.xfz.cn/1528283409_934.jpg-website.news.list" alt=""></a>
-                            </div>
-                            <div class="news-group">
-                                <p class="title"><a href="">王健林卖掉进军海外的首个项目：17亿售伦敦ONE六成股权</a></p>
-                                <p class="desc">海外关于万达要出售此前在海外投资项目的消息一直不断</p>
-                                <p class="more">
-                                    <span class="category">深度报道</span>
-                                    <span class="pub-time">1小时前</span>
-                                    <span class="author">doever</span>
-                                </p>
-                            </div>
+                        {% for new in news %}
+                            <li>
+                                <div class="thumbnail">
+                                    <a href="{% url 'news:news_detail' new.id %}"><img src="{{ MEDIA_URL }}{{ new.thumbnail }}" alt=""></a>
+                                </div>
+                                <div class="news-group">
+                                    <p class="title"><a href="{% url 'news:news_detail' new.id %}">{{ new.title }}</a></p>
+                                    <p class="desc">{{ new.desc }}</p>
+                                    <p class="more">
+                                        <span class="category">{{ new.category.name }}</span>
+                                        <span class="pub-time">{{ new.pub_time|time_since }}</span>
+                                        <span class="author">{{ new.author.username }}</span>
+                                    </p>
+                                </div>
                         </li>
-                        <li>
-                            <div class="thumbnail">
-                                <a href=""><img src="https://static-image.xfz.cn/1528280862_453.jpg-website.news.list" alt=""></a>
-                            </div>
-                            <div class="news-group">
-                                <p class="title"><a href="">蛋壳公寓完成7000万美元B+轮融资，老虎环球基金领投</a></p>
-                                <p class="desc">6月6日，国内长租公寓运营商蛋壳公寓完成7000万美元B+轮融资，本轮融资由老虎环球基金领投，BAI(贝塔斯曼亚洲投资基金）继续投资。</p>
-                                <p class="more">
-                                    <span class="category">融资消息</span>
-                                    <span class="pub-time">15小时前</span>
-                                    <span class="author">answer</span>
-                                </p>
-                            </div>
-                        </li>
+                        {% endfor %}
                     </ul>
                     <div class="load-more-group">
-                        <button class="load-more">查看更多</button>
+                        <button class="load-more" id="load-more-btn">查看更多</button>
                     </div>
                 </div>
             </div>

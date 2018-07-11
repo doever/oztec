@@ -24,6 +24,7 @@ class UserManager(BaseUserManager):
         kwargs['is_staff'] = True
         return self._create_user(telephone=telephone,username=username,password=password,**kwargs)
 
+
 class User(AbstractBaseUser,PermissionsMixin):
     uid = ShortUUIDField(primary_key=True)
     telephone = models.CharField(max_length=11,unique=True)

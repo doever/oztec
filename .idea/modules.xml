@@ -9,6 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/../loopapi/.idea/loopapi.iml" filepath="$PROJECT_DIR$/../loopapi/.idea/loopapi.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../code/myspider/.idea/myspider.iml" filepath="$PROJECT_DIR$/../../code/myspider/.idea/myspider.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/oztec.iml" filepath="$PROJECT_DIR$/.idea/oztec.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../restfulapi/.idea/restfulapi.iml" filepath="$PROJECT_DIR$/../restfulapi/.idea/restfulapi.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../code/unit_test/.idea/unit_test.iml" filepath="$PROJECT_DIR$/../../code/unit_test/.idea/unit_test.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../code/web_design/.idea/web_design.iml" filepath="$PROJECT_DIR$/../../code/web_design/.idea/web_design.iml" />
     </modules>

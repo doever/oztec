@@ -24,6 +24,7 @@
     <orderEntry type="module" module-name="unit_test" />
     <orderEntry type="module" module-name="myspider" />
     <orderEntry type="module" module-name="MxOnline" />
+    <orderEntry type="module" module-name="restfulapi" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />

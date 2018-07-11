@@ -20,11 +20,12 @@ from django.views.decorators.http import require_http_methods
 # 更改工作目录。这么做的目的是七牛qiniu的sdk
 # 在设置缓存路径的时候默认会设置到C:/Windows/System32下面
 # 会造成没有权限创建。
-os.chdir(os.path.dirname(__file__))
-try:
-    import qiniu
-except:
-    pass
+# os.chdir(os.path.dirname(__file__))
+# try:
+#     import qiniu
+# except:
+#     pass
+import qiniu
 from io import BytesIO
 
 
@@ -124,7 +125,6 @@ class UploadView(View):
         else:
             return 'FAIL',None,None,None
 
-
     def _upload_to_server(self,upfile,filename):
         """
         上传文件到自己的服务器
@@ -134,7 +134,6 @@ class UploadView(View):
                 fp.write(chunk)
         url = reverse("ueditor:send_file", kwargs={"filename": filename})
         return 'SUCCESS', url, filename, filename
-
 
     def _action_config(self):
         """
@@ -168,7 +167,6 @@ class UploadView(View):
         else:
             return self._json_result()
 
-
     def _action_scrawl(self,request):
         base64data = request.form.get("upfile")
         img = base64.b64decode(base64data)
@@ -177,7 +175,6 @@ class UploadView(View):
             fp.write(img)
         url = reverse('ueditor:send_file', kwargs={"filename": filename})
         return self._json_result('SUCCESS', url, filename, filename)
-
 
     def dispatch(self, request, *args, **kwargs):
         super(UploadView, self).dispatch(request,*args,**kwargs)

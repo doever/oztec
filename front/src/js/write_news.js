@@ -108,7 +108,7 @@ News.prototype.listenSubmitEvent = function () {
         var thumbnail = $("input[name='thumbnail']").val();
         var content = window.ue.getContent();
         csrfajax.post({
-            'url': '/cms/write_news/',
+            'url': '/adminlte/write_news/',
             'data': {
                 'title': title,
                 'category': category,

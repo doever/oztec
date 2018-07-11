@@ -21,9 +21,9 @@
             </div>
             <ul class="nav">
                 <li class="active"><a href="/">创业资讯</a></li>
-                <li><a href="/">创业课堂</a></li>
-                <li><a href="/">付费课程</a></li>
-                <li><a href="/">搜索</a></li>
+                <li><a href="{% url 'courses:courses_index' %}">创业课堂</a></li>
+                <li><a href="{% url 'payinfo:payinfo_index' %}">付费课程</a></li>
+                <li><a href="{% url 'search' %}">搜索</a></li>
             </ul>
             <div class="auth-box" id="auth">
                 <i class="icon-person iconfont"></i>
@@ -32,7 +32,7 @@
                     <div class="user-more-box">
                         <i class="triangle"></i>
                         {% if user.is_staff %}
-                            <a href="#">管理系统</a>
+                            <a href="{% url 'adminlte:backed_index' %}">管理系统</a>
                         {% endif %}
                             <a href="{% url 'ozauth:logout' %}">退出登录</a>
                     </div>

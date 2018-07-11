@@ -29,7 +29,7 @@ DEBUG = True
 
 # unbuntu主机地址
 ALLOWED_HOSTS = ['192.168.1.110','127.0.0.1']
-
+INTERNAL_IPS = ['127.0.0.1']
 
 # Application definition
 INSTALLED_APPS = [
@@ -39,19 +39,22 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'aab.apps.AabConfig',
+
     'apps.ozauth',
     'apps.news',
     'apps.courses',
     'apps.payinfo',
     'apps.adminte',
-    'apps.ueditor'
+    'apps.ueditor',
+    'rest_framework',
+    'debug_toolbar',
     # 'extra_apps.xadmin',
     # 'crispy_forms'
 ]
 
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -155,22 +158,10 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 
-# # Qiniu配置
-# QINIU_ACCESS_KEY = ''
-# QINIU_SECRET_KEY = ''
-# QINIU_BUCKET_NAME = ''
-# QINIU_DOMAIN = ''
-#
-# # 七牛和自己的服务器，最少要配置一个
-# # UEditor配置
-# UEDITOR_UPLOAD_TO_QINIU = True
-# UEDITOR_QINIU_ACCESS_KEY = QINIU_ACCESS_KEY
-# UEDITOR_QINIU_SECRET_KEY = QINIU_SECRET_KEY
-# UEDITOR_QINIU_BUCKET_NAME = QINIU_BUCKET_NAME
-# UEDITOR_QINIU_DOMAIN = QINIU_DOMAIN
-
 UEDITOR_UPLOAD_TO_SERVER = True
 UEDITOR_UPLOAD_PATH = MEDIA_ROOT
 
 UEDITOR_CONFIG_PATH = os.path.join(BASE_DIR,'front','dist','ueditor','config.json')
+
+NEWS_COUNT = 2
 

@@ -36,3 +36,9 @@ urlpatterns = [
     path('ueditor/', include('apps.ueditor.urls',namespace='ueditor')),
     # re_path(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns.append(path("__debug__/",include(debug_toolbar.urls)))
+

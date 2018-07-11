@@ -7,35 +7,45 @@ from django.views.decorators.http import require_POST,require_GET
 from django.conf import settings
 import qiniu
 
-from .models import NewCategory
+from apps.news.models import NewsCategory
 from utils import restful
+from .forms import WriteNewsForm
+from apps.news.models import News
 
 
-def login_view(request):
-    return render(request,'adminlte/login.html')
-
-
-def backed_index(request):
-    return render(request, 'adminlte/index.html')
-
-
-def write_news(request):
-    return render(request, 'adminlte/write_news.html')
-
-
-# def news_category(request):
-#     return render(request, 'adminlte/news_category.html')
-
-class NewsCategory(View):
+class WriteNewsView(View):
     def get(self,request):
-        categorys = NewCategory.objects.all()
+        categorys = NewsCategory.objects.all()
+        context = {
+            'categorys':categorys
+        }
+        return render(request, 'adminlte/write_news.html',context=context)
+
+    def post(self,request):
+        form = WriteNewsForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data.get('title')
+            desc = form.cleaned_data.get('desc')
+            thumbnail = form.cleaned_data.get('thumbnail')
+            content = form.cleaned_data.get('content')
+            category_id = form.cleaned_data.get('category')
+            category = NewsCategory.objects.get(pk=category_id)
+            News.objects.create(title=title, desc=desc, thumbnail=thumbnail, content=content, category=category, author=request.user)
+            return restful.ok()
+        else:
+            return restful.params_error(message=form.get_errors())
+
+
+class NewsCategoryView(View):
+    def get(self,request):
+        categorys = NewsCategory.objects.all()
         return render(request,'adminlte/news_category.html',context={'categorys':categorys})
 
     def post(self,request):
         category = request.POST.get("category","")
         nums = request.POST.get("nums","")
         print(category,nums)
-        NewCategory.objects.create(name=category,nums=nums)
+        NewsCategory.objects.create(name=category,nums=nums)
         return restful.ok()
 
     def put(self,request):
@@ -44,7 +54,7 @@ class NewsCategory(View):
         category_id = put_dict.get("category_id","")
         category_name = put_dict.get("category_name","")
         nums = put_dict.get("nums","")
-        category = NewCategory.objects.get(pk=category_id)
+        category = NewsCategory.objects.get(pk=category_id)
         category.name = category_name
         category.nums = nums
         category.save()
@@ -54,12 +64,12 @@ class NewsCategory(View):
         qd = QueryDict(request.body)
         delete_dict = {k: v[0] if len(v) == 1 else v for k, v in qd.lists()}
         category_id = delete_dict.get("category_id", "")
-        NewCategory.objects.get(pk=category_id).delete()
+        NewsCategory.objects.get(pk=category_id).delete()
         return restful.ok()
 
 
 def categorydetail(request,category_id):
-    category = NewCategory.objects.filter(pk=int(category_id)).first()
+    category = NewsCategory.objects.filter(pk=int(category_id)).first()
     return render(request,"adminlte/news_category_edit.html",context={"category":category})
 
 
@@ -91,3 +101,11 @@ def qntoken(request):
     token = q.upload_token(bucket)
 
     return restful.result(data={"token":token})
+
+
+def login_view(request):
+    return render(request,'adminlte/login.html')
+
+
+def backed_index(request):
+    return render(request, 'adminlte/index.html')
