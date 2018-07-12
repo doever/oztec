@@ -5,8 +5,8 @@ import time
 import os
 import string
 
-# Captcha验证码
 
+# Captcha验证码
 class Captcha(object):
     # 把一些常量抽取成类属性
     #字体的位置
@@ -79,3 +79,4 @@ class Captcha(object):
             cls.__gene_points(draw,10,width,height)
 
         return (text,image)
+

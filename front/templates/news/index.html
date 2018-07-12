@@ -1,4 +1,5 @@
 {% extends 'base/front_base.html' %}
+{% load static %}
 {% load news_filters %}
 {% block title %}
     首页
@@ -7,8 +8,8 @@
 {% block head %}
     <link rel="stylesheet" href="{% static 'css/news/index.min.css' %}">
     <link rel="stylesheet" href="//at.alicdn.com/t/font_695382_tt8o9lbnki3haor.css">
-    <script src="{% static 'js/index.min.js' %}"></script>
     <script src="{% static 'webtemplates/template-web.js' %}"></script>
+    <script src="{% static 'js/index.min.js' %}"></script>
     <script id='more_news' type="text/html">
         {% verbatim %}
             {{ each news new_body index }}

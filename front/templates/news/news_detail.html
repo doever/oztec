@@ -8,6 +8,21 @@
     <link rel="stylesheet" href="{% static 'css/news/news_detail.min.css' %}">
     <link rel="stylesheet" href="//at.alicdn.com/t/font_695382_tt8o9lbnki3haor.css">
     <link rel="stylesheet" href="//at.alicdn.com/t/font_695382_9mjt9mwz38d.css">
+    <script src="{% static 'js/layer/layer.js' %}"></script>
+    <script src="{% static 'webtemplates/template-web.js' %}"></script>
+    <script src="{% static 'js/news_detail.min.js' %}"></script>
+    <script id="comment-item" type="text/html">
+        {% verbatim %}
+            <li>
+                <div class="comment-info">
+                    <img class="avatar" src="http://p1.qhimgs4.com/t014dc5fc36dc8d1464.webp">
+                    <span class="author">{{ comment.author.username }}</span>
+                    <span class="pub-time">{{ comment.pub_time }}</span>
+                </div>
+                <p class="comment-context">{{ comment.content }}</p>
+            </li>
+        {% endverbatim %}
+    </script>
 {% endblock %}
 
 {% block main %}
@@ -33,27 +48,21 @@
                     </article>
                 </div>
                 <div class="comment-group">
-                    <h2 class="title">文章评论（0）</h2>
-                    <textarea name="comment" class="comment nologin-comment" placeholder="立刻登录，参与评论" readonly></textarea>
-                    <div><button class="submit-btn">立即评论</button></div>
+                    <h2 class="title">文章评论（{{ count.comment_count }}）</h2>
+                    <textarea name="comment" class="comment nologin-comment" placeholder="立刻登录，参与评论" ></textarea>
+                    <div><button class="submit-btn" id="submit-btn" data-pk="{{ new.id }}">立即评论</button></div>
                 </div>
                 <ul class="comment-list">
-                    <li>
-                        <div class="comment-info">
-                            <img class="avatar" src="https://static-image.xfz.cn/3864_1451467948864_hdImg_fa7eea5ece4a05faefb5d8c0b551dfc9.jpg-member.photo">
-                            <span class="author">治疗菌</span>
-                            <span class="pub-time">一小时前</span>
-                        </div>
-                        <p class="comment-context">谷歌极客vimium工具</p>
-                    </li>
-                    <li>
-                        <div class="comment-info">
-                            <img class="avatar" src="https://static-image.xfz.cn/3864_1451467948864_hdImg_fa7eea5ece4a05faefb5d8c0b551dfc9.jpg-member.photo">
-                            <span class="author">治疗菌</span>
-                            <span class="pub-time">一小时前</span>
-                        </div>
-                        <p class="comment-context">谷歌极客vimium工具</p>
-                    </li>
+                    {% for comment in comments %}
+                        <li>
+                            <div class="comment-info">
+                                <img class="avatar" src="http://p1.qhimgs4.com/t014dc5fc36dc8d1464.webp">
+                                <span class="author">{{ comment.author.username }}</span>
+                                <span class="pub-time">{{ comment.pub_time|time_since }}</span>
+                            </div>
+                            <p class="comment-context">{{ comment.content }}</p>
+                        </li>
+                    {% endfor %}
                 </ul>
             </div>
             {% include 'common/slidebar.html' %}

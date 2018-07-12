@@ -50,7 +50,7 @@ Banner.prototype.toggleArrow = function (isShow) {
 
 Banner.prototype.animate = function () {
     var self = this;
-    self.bannerUl.animate({"left":-798*self.index},500);
+    self.bannerUl.stop().animate({"left":-798*self.index},500);
     var index = self.index;
     if(index===0){
         index = self.bannerCount-1;
@@ -144,34 +144,6 @@ function Index(){
     this.category = 0;
     this.ulObj = $('.list-inner-group');
     this.loadMoreBtn = $('#load-more-btn');
-
-    // arttemplates的过滤器写法,类似django模板过滤器
-    template.defaults.imports.timeSince = function (dataValue) {
-        var date = new Date(dataValue);
-        var datets = date.getTime();
-        var now = (new Date()).getTime();
-        var timestamp = (now-datets)/1000;
-        if(timestamp<60){
-            return '刚刚';
-        }else if(timestamp>=60 && timestamp<60*60){
-            minutes = parseInt(timestamp/60);
-            return minutes+'分钟前';
-        }else if(timestamp>=60*60 && timestamp<60*60*24){
-            hours = parseInt(timestamp/60/60);
-            return hours+'小时前';
-        }else if(timestamp>=60*60*24 && timestamp<60*60*24*30){
-            days = parseInt(timestamp/60/60/24);
-            return days+'天前';
-        }else{
-            var year = date.getFullYear();
-            var mouth = date.getMonth();
-            var day = date.getDay();
-            var hour = date.getHours();
-            var minute = date.getMinutes();
-            var second = date.getSeconds();
-            return year+'-'+mouth+'-'+day+' '+hour+':'+minute+':'+second;
-        }
-    }
 }
 
 Index.prototype.ListenLoadMoreEvent = function(){

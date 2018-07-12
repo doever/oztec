@@ -29,7 +29,7 @@ DEBUG = True
 
 # unbuntu主机地址
 ALLOWED_HOSTS = ['192.168.1.110','127.0.0.1']
-INTERNAL_IPS = ['127.0.0.1']
+
 
 # Application definition
 INSTALLED_APPS = [
@@ -159,9 +159,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 
 UEDITOR_UPLOAD_TO_SERVER = True
-UEDITOR_UPLOAD_PATH = MEDIA_ROOT
-
+UEDITOR_UPLOAD_PATH = os.path.join(MEDIA_ROOT,'news_photo')
 UEDITOR_CONFIG_PATH = os.path.join(BASE_DIR,'front','dist','ueditor','config.json')
 
 NEWS_COUNT = 2
 
+# tool-bar setting
+INTERNAL_IPS = ['127.0.0.1']
+DEBUG_TOOLBAR_CONFIG = {
+    'JQUERY_URL':''
+}

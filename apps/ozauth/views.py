@@ -14,15 +14,6 @@ from utils import restful
 from utils.aliyunsmssdk import aliyunsms
 
 
-def add_user(request):
-    username = 'long'
-    telephone = '15122223333'
-    password = '111111'
-    email = '1584@12com'
-    User.objects.create_user(username=username,password=password,telephone=telephone,email=email)
-    return HttpResponse('成功')
-
-
 @require_POST
 def login_view(request):
     forms = LoginForm(request.POST)

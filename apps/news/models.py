@@ -19,3 +19,12 @@ class News(models.Model):
     class Meta:
         ordering = ["-pub_time"]
 
+
+class Comment(models.Model):
+    content = models.CharField(max_length=200)
+    pub_time = models.DateTimeField(auto_now_add=True)
+    new = models.ForeignKey(News,on_delete=models.CASCADE)
+    author = models.ForeignKey('ozauth.User',on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ["-pub_time"]

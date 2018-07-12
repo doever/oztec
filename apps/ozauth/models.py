@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,PermissionsMixin,BaseUserManager
 from shortuuidfield import ShortUUIDField
 
+
 class UserManager(BaseUserManager):
     def _create_user(self,telephone,username,password,**kwargs):
         if not telephone:
@@ -46,3 +47,4 @@ class User(AbstractBaseUser,PermissionsMixin):
 
     def get_short_name(self):
         return self.username
+

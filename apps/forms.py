@@ -1,19 +1,29 @@
 #!/usr/bin/python3
-
-# {"username": [{"message": "\u8bf7\u8f93\u5165\u7528\u6237\u540d", "code": "required"}],
-#  "password": [{"message": "\u8bf7\u8f93\u5165\u5bc6\u7801", "code": "required"}]}
+import json
 
 
 class FormMiXin(object):
     def get_errors(self):
         if hasattr(self,'errors'):
             errors = self.errors.get_json_data()
-            new_errors={}
+            new_errors = {}
             for key,message_dicts in errors.items():
-                messages=[]
+                messages = []
                 for message in message_dicts:
                     messages.append(message['message'])
-                new_errors[key]=messages
+                new_errors[key] = messages
             return new_errors
         else:
             return {}
+
+    # 取第一个错误
+    def get_first_error(self):
+        if hasattr(self, 'errors'):
+            errors = self.errors.as_json()
+            errors = json.loads(errors)
+            # first_error = sorted(first_error_list[0].items())[1][1]
+
+            key = list(errors.keys())[0]
+            first_error = sorted(errors[key][0].items())[1][1]
+            return first_error
+

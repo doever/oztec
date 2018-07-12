@@ -3,10 +3,12 @@ from django.http import HttpResponse,JsonResponse
 from django.views.generic import View
 from django.conf import settings
 from django.http import Http404
+from django.db.models import Avg,Count
 
-from .models import NewsCategory,News
+from .models import NewsCategory,News,Comment
 from utils import restful
-from .serializers import NewsSerializer
+from .serializers import NewsSerializer,CommentSerializer
+from .forms import PublishComment
 
 
 def index(request):
@@ -24,7 +26,7 @@ def index(request):
 
 def news_list(request):
     page = request.GET.get('page',1)
-    category =request.GET.get('category',0)
+    category = request.GET.get('category',0)
     start_page = (int(page)-1)*settings.NEWS_COUNT
     end_page = start_page + settings.NEWS_COUNT
     if int(category) == 0:
@@ -36,17 +38,33 @@ def news_list(request):
 
 
 def news_detail(request,news_id):
-    # news_id = request.GET.get(news_id)
     try:
         new = News.objects.select_related('author','category').get(pk=news_id)
         hot_news = News.objects.select_related('author','category').filter(category_id=1).exclude(pk=news_id)[0:2]
+        comments = new.comment_set.select_related().all()
+        count = new.comment_set.aggregate(comment_count=Count('id'))
+        print(count)
         context = {
             'new':new,
-            'hot_news':hot_news
+            'hot_news':hot_news,
+            'comments':comments,
+            'count':count
         }
     except:
         raise Http404
     return render(request,'news/news_detail.html',context=context)
+
+
+def publish_comment(request):
+    form = PublishComment(request.POST)
+    if form.is_valid():
+        content = form.cleaned_data.get('content')
+        new = form.cleaned_data.get('new')
+        comment = Comment.objects.create(content=content,new=new,author=request.user)
+        comment_serializer = CommentSerializer(comment)
+        return restful.ok(data=comment_serializer.data)
+    else:
+        return restful.params_error(message=form.get_errors())
 
 
 def search(request):

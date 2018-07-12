@@ -82,10 +82,10 @@ def templateview(request,template):
 def upload_file(request):
     file = request.FILES.get('file')
     name = file.name
-    with open(os.path.join(settings.MEDIA_ROOT,name),'wb') as fp:
+    with open(os.path.join(settings.MEDIA_ROOT,'newsthumbnail',name),'wb') as fp:
         for chunk in file.chunks():
             fp.write(chunk)
-    url = request.build_absolute_uri(settings.MEDIA_URL+name)
+    url = request.build_absolute_uri(settings.MEDIA_URL+'newsthumbnail/'+name)
     # http://127.0.1:8000/media/abc.jpg
     return restful.result(data={'url':url})
 

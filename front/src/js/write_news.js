@@ -5,7 +5,7 @@ function News() {
 News.prototype.initUEditor = function () {
     window.ue = UE.getEditor('editor',{
         'initialFrameHeight': 400,
-        'serverUrl': '/myueditor/upload/'
+        'serverUrl': '/ueditor/upload/'
     });
 };
 
