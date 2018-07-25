@@ -19,8 +19,18 @@
           <option value="E265" />
           <option value="E101" />
           <option value="W191" />
+          <option value="W292" />
         </list>
       </option>
     </inspection_tool>
+    <inspection_tool class="PyPep8NamingInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="N802" />
+          <option value="N801" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PySingleQuotedDocstringInspection" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
   </profile>
 </component>

@@ -23,8 +23,9 @@
     <orderEntry type="module" module-name="web_design" />
     <orderEntry type="module" module-name="unit_test" />
     <orderEntry type="module" module-name="myspider" />
-    <orderEntry type="module" module-name="MxOnline" />
     <orderEntry type="module" module-name="restfulapi" />
+    <orderEntry type="module" module-name="BIdata" />
+    <orderEntry type="module" module-name="webpy-test" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />

@@ -3,6 +3,7 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../../code/QMS" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../BIdata" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../mxonline" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../restfulapi" vcs="Git" />
   </component>

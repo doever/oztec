@@ -36,7 +36,7 @@ def login_view(request):
             return restful.params_error(message='您的账号或密码错误')
 
     else:
-        errors = forms.get_errors()
+        errors = forms.get_first_error()
         return restful.params_error(message=errors)
 
 

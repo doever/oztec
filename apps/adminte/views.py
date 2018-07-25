@@ -8,7 +8,8 @@ from django.conf import settings
 import qiniu
 
 from apps.news.models import NewsCategory
-from utils import restful
+from utils import restful,login_require
+from utils.login_require import login_require
 from .forms import WriteNewsForm
 from apps.news.models import News
 
@@ -107,5 +108,7 @@ def login_view(request):
     return render(request,'adminlte/login.html')
 
 
+@login_require
 def backed_index(request):
+    print('aaaaaaaaaaa')
     return render(request, 'adminlte/index.html')
