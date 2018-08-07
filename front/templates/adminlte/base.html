@@ -168,7 +168,7 @@
             <li><a href="{% url 'adminlte:news_category' %}"><i class="fa fa-circle-o"></i> 新闻分类</a></li>
           </ul>
         </li>
-          <li class="active treeview">
+        <li class="active treeview">
           <a href="#">
             <i class="fa fa-user"></i> <span>用户管理</span>
             <span class="pull-right-container">
@@ -179,6 +179,17 @@
               <li class=""><a href="index.html"><i class="fa fa-circle-o"></i> 用户</a></li>
               <li><a href="index2.html"><i class="fa fa-circle-o"></i> 用户组</a></li>
               <li class=""><a href="index.html"><i class="fa fa-circle-o"></i> 用户权限</a></li>
+          </ul>
+        </li>
+        <li class="active treeview">
+          <a href="#">
+            <i class="fa fa-window-restore"></i> <span>轮播图</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+              <li class=""><a href="{% url "adminlte:banner" %}"><i class="fa fa-circle-o"></i> 轮播图管理</a></li>
           </ul>
         </li>
       </ul>

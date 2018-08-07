@@ -26,7 +26,8 @@ NewsDetail.prototype.listenCommentSubmit = function(){
                     contentObj.val('');
                     layer.msg('评论成功');
                 }else{
-                    // layer.msg(result['message']);
+                    //如果失败,弹出失败信息
+                    layer.msg(result['message']);
                 }
             },
             'error':function (error) {

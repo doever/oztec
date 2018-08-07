@@ -1,0 +1,75 @@
+{% extends 'adminlte/base.html' %}
+{% block title %}
+OZTEC轮播图管理
+{% endblock %}
+
+{% block links %}
+
+{% endblock %}
+{% block scripts %}
+
+{% endblock %}
+
+{% block content-title %}
+轮播图管理
+{% endblock %}
+
+{% block content-path %}
+轮播图
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="btn btn-primary" style="float: left;">
+            <i class="fa fa-plus"></i>
+            添加轮播图
+        </div>
+        <ul class="banner-attention" style="float: left;">
+            <li>图片不要超过6张,只支持jpg,png格式的图片</li>
+            <li>图片的比例4:1</li>
+        </ul>
+    </div>
+</div>
+<div class="box" style="width: 800px">
+    <div class="box-header">
+        <span style="float: left;">优先级: 4</span>
+        <button class="btn btn-default btn-xs" style="float: right;">
+            <i class="fa fa-close"></i>
+        </button>
+    </div>
+    <div class="box-body">
+        <div class="thubmail-group" style="width: 230px;float: left;margin-right: 20px;">
+            <img src="https://static-image.xfz.cn/1512989310_955.jpg" alt="" class="thubmail" style="width: 100%">
+        </div>
+        <div class="form-group" style="float: left;width: 510px;">
+            <input type="number" class="form-control" name="position" placeholder="优先级" style="margin-bottom: 5px;">
+            <input type="number" class="form-control" name="thubmail-link" placeholder="轮播图链接">
+        </div>
+    </div>
+    <div class="box-footer">
+        <button class="btn btn-primary pull-right" style="margin-right: 20px;">保存</button>
+    </div>
+</div>
+<div class="box" style="width: 800px">
+    <div class="box-header">
+        <span style="float: left;">优先级: 4</span>
+        <button class="btn btn-default btn-xs" style="float: right;">
+            <i class="fa fa-close"></i>
+        </button>
+    </div>
+    <div class="box-body">
+        <div class="thubmail-group" style="width: 230px;float: left;margin-right: 20px;">
+            <img src="https://static-image.xfz.cn/1512989310_955.jpg" alt="" class="thubmail" style="width: 100%">
+        </div>
+        <div class="form-group" style="float: left;width: 510px;">
+            <input type="number" class="form-control" name="position" placeholder="优先级" style="margin-bottom: 5px;">
+            <input type="number" class="form-control" name="thubmail-link" placeholder="轮播图链接">
+        </div>
+    </div>
+    <div class="box-footer">
+        <button class="btn btn-primary pull-right" style="margin-right: 20px;">保存</button>
+    </div>
+</div>
+{% endblock %}
+

@@ -1,6 +1,6 @@
 from io import BytesIO
 
-from django.contrib.auth import logout,login,authenticate
+from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import permission_required
 from django.views.decorators.http import require_POST
 from django.http import HttpResponse,JsonResponse
@@ -21,10 +21,10 @@ def login_view(request):
         telephone = forms.cleaned_data.get('telephone')
         password = forms.cleaned_data.get('password')
         remember = forms.cleaned_data.get('remember')
-        user = authenticate(request,username=telephone,password=password)
+        user = authenticate(request, username=telephone, password=password)
         if user:
             if user.is_active:
-                login(request,user)
+                login(request, user)
                 if remember:
                     request.session.set_expiry(None)
                 else:
@@ -49,9 +49,9 @@ def logout_view(request):
 def img_captcha(request):
     text,image = Captcha().gene_code()
     out = BytesIO()
-    image.save(out,'png')
+    image.save(out, 'png')
     out.seek(0)
-    cache.set(text.lower(),text.lower(),5*60)
+    cache.set(text.lower(), text.lower(), 5*60)
     response = HttpResponse(content_type='image/png')
     response.write(out.read())
     response['Content-length'] = out.tell()
@@ -61,8 +61,8 @@ def img_captcha(request):
 def sms_code(request):
     telephone = request.GET.get('telephone')
     code = Captcha.gene_text()
-    aliyunsms.send_sms(phone_numbers=telephone,code=code)
-    cache.set(telephone,code.lower(),5*60)
+    aliyunsms.send_sms(phone_numbers=telephone, code=code)
+    cache.set(telephone, code.lower(), 5*60)
     return restful.ok()
 
 
@@ -73,14 +73,14 @@ def register(request):
         telephone = form.cleaned_data.get('telephone')
         password = form.cleaned_data.get('password')
         username = form.cleaned_data.get('username')
-        user = User.objects.create_user(telephone=telephone,password=password,username=username)
-        login(request,user)
+        user = User.objects.create_user(telephone=telephone, password=password, username=username)
+        login(request, user)
         return restful.ok()
     else:
         return restful.params_error(message=form.get_errors())
 
 
 def test_cache(request):
-    cache.set('username','chilo',60)
+    cache.set('username', 'chilo',60)
     username = cache.get('username')
     return HttpResponse(username)
