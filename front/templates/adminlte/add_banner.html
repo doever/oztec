@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="{% static 'adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
+    <script src="{% static 'adminlte/bower_components/jquery/dist/jquery.min.js' %}"></script>
+    <script src="{% static 'js/csrfajax.min.js' %}"></script>
+    <script src="{% static 'js/message.min.js' %}"></script>
+    <script src="{% static 'js/layer/layer.js' %}"></script>
+</head>
+<body>
+<form action="">
+    <div class="row">
+        <div class="from-group col-md-8 col-md-offset-2">
+            <label>跳转地址 : </label>
+            <input type="text" class="form-control" name="link_url">
+            <label>优先级 : </label>
+            <input type="text" class="form-control" name="position">
+            <label for="thumbnail-form">轮播图</label>
+            <div class="input-group">
+                <input type="file" class="btn btn-default" id="thumbnail-btn" name="thumbnail">
+            </div>
+            <input type="text" class="form-control" name="banner_url" id="thumbnail-form">
+        </div>
+    </div>
+</form>
+<script>
+$(function () {
+    var uploadBtn = $('#thumbnail-btn');
+    uploadBtn.change(function () {
+        var file = uploadBtn[0].files[0];
+        var formData = new FormData();
+        formData.append('file',file);
+        // formData.append('way','newsthumbnail');
+        csrfajax.post({
+            'url': '/adminlte/upload_file/banner/',
+            'data': formData,
+            'processData': false,
+            'contentType': false,
+            'success': function (result) {
+                if(result['code'] === 200){
+                    var url = result['data']['url'];
+                    var thumbnailInput = $("#thumbnail-form");
+                    thumbnailInput.val(url);
+                }
+            }
+        });
+    });
+});
+</script>
+</body>
+</html>

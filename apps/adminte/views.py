@@ -3,15 +3,16 @@ import os
 from django.shortcuts import render
 from django.views.generic import View
 from django.http import QueryDict
-from django.views.decorators.http import require_POST,require_GET
+from django.views.decorators.http import require_POST, require_GET
 from django.conf import settings
 import qiniu
 
 from apps.news.models import NewsCategory
-from utils import restful,login_require
+from utils import restful, login_require
 from utils.login_require import login_require
-from .forms import WriteNewsForm
+from .forms import WriteNewsForm, AddBannerFrom
 from apps.news.models import News
+from .models import Banner
 
 
 class WriteNewsView(View):
@@ -80,13 +81,13 @@ def templateview(request, template):
 
 
 @require_POST
-def upload_file(request):
+def upload_file(request, way):
     file = request.FILES.get('file')
     name = file.name
-    with open(os.path.join(settings.MEDIA_ROOT, 'newsthumbnail', name), 'wb') as fp:
+    with open(os.path.join(settings.MEDIA_ROOT, way, name), 'wb') as fp:
         for chunk in file.chunks():
             fp.write(chunk)
-    url = request.build_absolute_uri(settings.MEDIA_URL+'newsthumbnail/'+name)
+    url = request.build_absolute_uri(settings.MEDIA_URL+way+'/'+name)
     # http://127.0.1:8000/media/abc.jpg
     return restful.result(data={'url': url})
 
@@ -115,4 +116,18 @@ def backed_index(request):
 
 
 def banner(request):
-    return render(request, 'adminlte/banner.html')
+    '''返回轮播图管理界面'''
+    banners = Banner.objects.filter(is_del=0)
+    return render(request, 'adminlte/banner.html', context={'banners': banners})
+
+
+def add_banner(request):
+    '''添加轮播图'''
+    form = AddBannerFrom(request.POST)
+    if form.is_valid():
+        form.save()
+        # Banner.objects.create(link_url=link_url, position=position, banner_url=banner_url)
+    else:
+        return restful.params_error(form.get_first_error())
+    return restful.ok()
+

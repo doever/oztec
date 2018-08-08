@@ -9,6 +9,7 @@ urlpatterns = [
     path('write_news/', views.WriteNewsView.as_view(), name='write_news'),
     path('news_category/', views.NewsCategoryView.as_view(), name='news_category'),
     path('category_detail/<category_id>/', views.categorydetail, name='categorydetail'),
-    path('upload_file/', views.upload_file, name='upload_file'),
+    re_path('upload_file/(?P<way>.*)/', views.upload_file, name='upload_file'),
     path('banner/', views.banner, name='banner'),
+    path('add_banner/', views.add_banner, name='add_banner'),
 ]

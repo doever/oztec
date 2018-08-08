@@ -15,8 +15,9 @@ News.prototype.listenUploadFielEvent = function () {
         var file = uploadBtn[0].files[0];
         var formData = new FormData();
         formData.append('file',file);
+        // formData.append('way','newsthumbnail');
         csrfajax.post({
-            'url': '/adminlte/upload_file/',
+            'url': '/adminlte/upload_file/newsthumbnail/',
             'data': formData,
             'processData': false,
             'contentType': false,

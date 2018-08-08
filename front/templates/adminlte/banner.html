@@ -7,7 +7,7 @@ OZTEC轮播图管理
 
 {% endblock %}
 {% block scripts %}
-
+    <script src="{% static 'js/banner_manage.min.js' %}"></script>
 {% endblock %}
 
 {% block content-title %}
@@ -21,7 +21,7 @@ OZTEC轮播图管理
 {% block content %}
 <div class="row">
     <div class="col-md-12">
-        <div class="btn btn-primary" style="float: left;">
+        <div class="btn btn-primary" id="add-banner" style="float: left;">
             <i class="fa fa-plus"></i>
             添加轮播图
         </div>
@@ -31,45 +31,29 @@ OZTEC轮播图管理
         </ul>
     </div>
 </div>
-<div class="box" style="width: 800px">
-    <div class="box-header">
-        <span style="float: left;">优先级: 4</span>
-        <button class="btn btn-default btn-xs" style="float: right;">
-            <i class="fa fa-close"></i>
-        </button>
-    </div>
-    <div class="box-body">
-        <div class="thubmail-group" style="width: 230px;float: left;margin-right: 20px;">
-            <img src="https://static-image.xfz.cn/1512989310_955.jpg" alt="" class="thubmail" style="width: 100%">
+
+{% for banner in banners %}
+    <div class="box" style="width: 800px">
+        <div class="box-header">
+            <span style="float: left;">优先级: {{ banner.position }}</span>
+            <button class="btn btn-default btn-xs" style="float: right;">
+                <i class="fa fa-close"></i>
+            </button>
         </div>
-        <div class="form-group" style="float: left;width: 510px;">
-            <input type="number" class="form-control" name="position" placeholder="优先级" style="margin-bottom: 5px;">
-            <input type="number" class="form-control" name="thubmail-link" placeholder="轮播图链接">
+        <div class="box-body">
+            <div class="thubmail-group" style="width: 230px;float: left;margin-right: 20px;">
+                <img src="{{ banner.banner_url }}" alt="" class="thubmail" style="width: 100%">
+            </div>
+            <div class="form-group" style="float: left;width: 510px;">
+                <input type="number" class="form-control" name="position" placeholder="优先级" style="margin-bottom: 5px;" value="{{ banner.position }}">
+                <input type="text" class="form-control" name="thubmail-link" placeholder="跳转链接" value="{{ banner.link_url }}">
+            </div>
         </div>
-    </div>
-    <div class="box-footer">
-        <button class="btn btn-primary pull-right" style="margin-right: 20px;">保存</button>
-    </div>
-</div>
-<div class="box" style="width: 800px">
-    <div class="box-header">
-        <span style="float: left;">优先级: 4</span>
-        <button class="btn btn-default btn-xs" style="float: right;">
-            <i class="fa fa-close"></i>
-        </button>
-    </div>
-    <div class="box-body">
-        <div class="thubmail-group" style="width: 230px;float: left;margin-right: 20px;">
-            <img src="https://static-image.xfz.cn/1512989310_955.jpg" alt="" class="thubmail" style="width: 100%">
-        </div>
-        <div class="form-group" style="float: left;width: 510px;">
-            <input type="number" class="form-control" name="position" placeholder="优先级" style="margin-bottom: 5px;">
-            <input type="number" class="form-control" name="thubmail-link" placeholder="轮播图链接">
+        <div class="box-footer">
+            <button class="btn btn-primary pull-right" style="margin-right: 20px;">保存</button>
         </div>
     </div>
-    <div class="box-footer">
-        <button class="btn btn-primary pull-right" style="margin-right: 20px;">保存</button>
-    </div>
-</div>
+{% endfor %}
+
 {% endblock %}
 
