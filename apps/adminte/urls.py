@@ -1,4 +1,4 @@
-from django.urls import path,re_path
+from django.urls import path, re_path
 from . import views
 
 app_name = 'adminlte'
@@ -10,6 +10,7 @@ urlpatterns = [
     path('news_category/', views.NewsCategoryView.as_view(), name='news_category'),
     path('category_detail/<category_id>/', views.categorydetail, name='categorydetail'),
     re_path('upload_file/(?P<way>.*)/', views.upload_file, name='upload_file'),
-    path('banner/', views.banner, name='banner'),
-    path('add_banner/', views.add_banner, name='add_banner'),
+    path('banner_list/', views.BannerList.as_view(), name='banner_list'),
+    path('banner/<banner_id>/', views.BannerView.as_view(), name='banner'),
+    # re_path('banner/(?P<banner_id>/d+)/', views.BannerView.as_view(), name='banner'),
 ]

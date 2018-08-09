@@ -33,10 +33,10 @@ OZTEC轮播图管理
 </div>
 
 {% for banner in banners %}
-    <div class="box" style="width: 800px">
+    <div class="box" style="width: 800px" data-pk="{{ banner.id }}">
         <div class="box-header">
             <span style="float: left;">优先级: {{ banner.position }}</span>
-            <button class="btn btn-default btn-xs" style="float: right;">
+            <button class="btn btn-default btn-xs banner-close-btn" style="float: right;">
                 <i class="fa fa-close"></i>
             </button>
         </div>
@@ -46,11 +46,11 @@ OZTEC轮播图管理
             </div>
             <div class="form-group" style="float: left;width: 510px;">
                 <input type="number" class="form-control" name="position" placeholder="优先级" style="margin-bottom: 5px;" value="{{ banner.position }}">
-                <input type="text" class="form-control" name="thubmail-link" placeholder="跳转链接" value="{{ banner.link_url }}">
+                <input type="text" class="form-control" name="link_url" placeholder="跳转链接" value="{{ banner.link_url }}">
             </div>
         </div>
         <div class="box-footer">
-            <button class="btn btn-primary pull-right" style="margin-right: 20px;">保存</button>
+            <button class="btn btn-primary pull-right edit-banner-btn" style="margin-right: 20px;">保存</button>
         </div>
     </div>
 {% endfor %}

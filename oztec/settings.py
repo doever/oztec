@@ -28,7 +28,7 @@ SECRET_KEY = '2np+9u0o2$8c&_+!hu5x29v=*@zjlo0#ftk_f#h$(29f1a55m_'
 DEBUG = True
 
 # unbuntu主机地址
-ALLOWED_HOSTS = ['192.168.1.110','127.0.0.1']
+ALLOWED_HOSTS = ['192.168.1.110', '127.0.0.1', '192.168.3.108', '192.168.3.113']
 
 
 # Application definition

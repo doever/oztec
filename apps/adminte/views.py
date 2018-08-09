@@ -13,6 +13,7 @@ from utils.login_require import login_require
 from .forms import WriteNewsForm, AddBannerFrom
 from apps.news.models import News
 from .models import Banner
+from .serializers import BannerSerializer
 
 
 class WriteNewsView(View):
@@ -50,7 +51,7 @@ class NewsCategoryView(View):
         NewsCategory.objects.create(name=category, nums=nums)
         return restful.ok()
 
-    def put(self,request):
+    def put(self, request):
         qd = QueryDict(request.body)
         put_dict = {k: v[0] if len(v) == 1 else v for k, v in qd.lists()}
         category_id = put_dict.get("category_id", "")
@@ -62,7 +63,7 @@ class NewsCategoryView(View):
         category.save()
         return restful.ok()
 
-    def delete(self,request):
+    def delete(self, request):
         qd = QueryDict(request.body)
         delete_dict = {k: v[0] if len(v) == 1 else v for k, v in qd.lists()}
         category_id = delete_dict.get("category_id", "")
@@ -115,19 +116,70 @@ def backed_index(request):
     return render(request, 'adminlte/index.html')
 
 
-def banner(request):
-    '''返回轮播图管理界面'''
-    banners = Banner.objects.filter(is_del=0)
-    return render(request, 'adminlte/banner.html', context={'banners': banners})
+class BannerList(View):
+    '''轮播图管理,采用restful风格'''
+    def get(self, request):
+        '''返回轮播图管理界面'''
+        banners = Banner.objects.filter(is_del=0)
+        return render(request, 'adminlte/banner.html', context={'banners': banners})
+
+    def post(self, request):
+        '''添加轮播图'''
+        form = AddBannerFrom(request.POST)
+        if form.is_valid():
+            form.save()
+            # Banner.objects.create(link_url=link_url, position=position, banner_url=banner_url)
+        else:
+            return restful.params_error(form.get_first_error())
+        return restful.ok()
 
 
-def add_banner(request):
-    '''添加轮播图'''
-    form = AddBannerFrom(request.POST)
-    if form.is_valid():
-        form.save()
-        # Banner.objects.create(link_url=link_url, position=position, banner_url=banner_url)
-    else:
-        return restful.params_error(form.get_first_error())
-    return restful.ok()
+class BannerView(View):
+    def get(self,request, banner_id):
+        banner = Banner.objects.get(pk=banner_id)
+        if not banner:
+            return restful.params_error(message='轮播图不存在')
+        return
+
+    def put(self, request, banner_id):
+        '''修改轮播图'''
+        qd = QueryDict(request.body)
+        put_dict = {k: v[0] if len(v) == 1 else v for k, v in qd.lists()}
+        banner = Banner.objects.get(pk=banner_id)
+        if not banner:
+            return restful.params_error(message='轮播图不存在')
+        position = put_dict.get('position')
+        link_url = put_dict.get('link_url')
+        # Banner.objects.filter(pk=banner_id).update(position=position, link_url=link_url)
+        banner.position = position
+        banner.link_url = link_url
+        banner.save()
+        return restful.ok()
+
+    def delete(self, request, banner_id):
+        '''删除轮播图'''
+        banner = Banner.objects.get(pk=banner_id)
+        if not banner:
+            return restful.params_error(message='轮播图不存在')
+        banner.is_del = 1
+        banner.save()
+        return restful.ok()
+
+
+# def banner(request):
+#     '''返回轮播图管理界面'''
+#     banners = Banner.objects.filter(is_del=0)
+#     return render(request, 'adminlte/banner.html', context={'banners': banners})
+#
+#
+# def add_banner(request):
+#     '''添加轮播图'''
+#     form = AddBannerFrom(request.POST)
+#     if form.is_valid():
+#         form.save()
+#         # Banner.objects.create(link_url=link_url, position=position, banner_url=banner_url)
+#     else:
+#         return restful.params_error(form.get_first_error())
+#     return restful.ok()
+
 
