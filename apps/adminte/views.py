@@ -183,3 +183,5 @@ class BannerView(View):
 #     return restful.ok()
 
 
+def new_list(request):
+    return render(request, "adminlte/news_list.html")

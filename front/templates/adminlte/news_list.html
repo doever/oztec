@@ -1,0 +1,41 @@
+{% extends "adminlte/base.html" %}
+{% block title %}
+新闻列表管理
+{% endblock %}
+
+{% block links %}
+
+{% endblock %}
+
+{% block scripts %}
+    <script src=""></script>
+{% endblock %}
+
+{% block content-path %}
+新闻列表
+{% endblock %}
+
+{% block content-title %}
+新闻列表管理
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-head">
+                    <form action="" class="form-inline">
+                        <div class="form-control">
+                            <label>时间</label>
+                            <input type="text" name="start_time" readonly>
+                            <span>-</span>
+                            <input type="text" name="end_time" readonly>
+                        </div>
+                    </form>
+                </div>
+                <div class="box-body"></div>
+                <div class="box-footer"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
