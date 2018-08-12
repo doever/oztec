@@ -183,5 +183,9 @@ class BannerView(View):
 #     return restful.ok()
 
 
-def new_list(request):
-    return render(request, "adminlte/news_list.html")
+def news_list(request):
+    context = {
+        'categories': NewsCategory.objects.all(),
+        'newses': News.objects.select_related('category', 'author').all()
+    }
+    return render(request, "adminlte/news_list.html", context=context)
