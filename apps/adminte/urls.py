@@ -12,6 +12,6 @@ urlpatterns = [
     re_path('upload_file/(?P<way>.*)/', views.upload_file, name='upload_file'),
     path('banner_list/', views.BannerList.as_view(), name='banner_list'),
     path('banner/<banner_id>/', views.BannerView.as_view(), name='banner'),
-    path('news_list/', views.news_list, name='news_list'),
+    path('news_list/', views.NewsListView.as_view(), name='news_list'),
     # re_path('banner/(?P<banner_id>/d+)/', views.BannerView.as_view(), name='banner'),
 ]
