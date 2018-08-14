@@ -190,7 +190,10 @@ class NewsListView(View):
         page = int(request.GET.get('page', 1))
         newes = News.objects.select_related('category', 'author').all()
         paginator = Paginator(newes, 5)
-        page_obj = paginator.page(page)
+        try:
+            page_obj = paginator.page(page)
+        except:
+            return render(request, "404.html")
         context_data = self.get_pagination_data(paginator, page_obj)
         context = {
             'categories': NewsCategory.objects.all(),
