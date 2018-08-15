@@ -1,13 +1,14 @@
 from django.shortcuts import render
-from django.http import HttpResponse,JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.generic import View
 from django.conf import settings
 from django.http import Http404
-from django.db.models import Avg,Count
+from django.db.models import Avg, Count
 
-from .models import NewsCategory,News,Comment
+from .models import NewsCategory, News, Comment
+from apps.adminte.models import Banner
 from utils import restful
-from .serializers import NewsSerializer,CommentSerializer
+from .serializers import NewsSerializer, CommentSerializer
 from .forms import PublishComment
 from apps.ozauth.decorators import auth_login_required
 
@@ -17,10 +18,14 @@ def index(request):
     news = News.objects.select_related('author', 'category').all()[0:page_count]
     hot_news = News.objects.select_related().filter(category_id=1)[0:2]
     categorys = NewsCategory.objects.all()
+    banners = Banner.objects.filter(is_del=0).order_by('position')[0:5]
+    # for banner in banners:
+    #     print(banner.banner_url, banner.link_url)
     context = {
         'news': news,
         'categorys': categorys,
-        'hot_news': hot_news
+        'hot_news': hot_news,
+        'banners': banners
     }
     return render(request, 'news/index.html', context=context)
 

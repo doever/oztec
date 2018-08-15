@@ -25,17 +25,17 @@ from apps.adminte.views import templateview
 
 urlpatterns = [
     # path('xadmin/', xadmin.site.urls),
-    path('',views.index,name='index'),
-    path('search/',views.search,name='search'),
-    re_path('templates/(?P<template>.*)/$',templateview,name='template'),
+    path('', views.index, name='index'),
+    path('search/', views.search, name='search'),
+    re_path('templates/(?P<template>.*)/$', templateview, name='template'),
     path('news/', include('apps.news.urls', namespace='news')),
-    path('account/',include('apps.ozauth.urls',namespace='ozauth')),
+    path('account/', include('apps.ozauth.urls', namespace='ozauth')),
     path('adminlte/', include('apps.adminte.urls', namespace='adminlte')),
-    path('courses/',include('apps.courses.urls',namespace='courses')),
-    path('payinfo/',include('apps.payinfo.urls',namespace='payinfo')),
-    path('ueditor/', include('apps.ueditor.urls',namespace='ueditor')),
+    path('courses/', include('apps.courses.urls', namespace='courses')),
+    path('payinfo/', include('apps.payinfo.urls', namespace='payinfo')),
+    path('ueditor/', include('apps.ueditor.urls', namespace='ueditor')),
     # re_path(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
 if settings.DEBUG:
