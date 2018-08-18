@@ -1,4 +1,6 @@
 import os
+from datetime import datetime
+from urllib import parse
 
 import qiniu
 from django.shortcuts import render
@@ -108,7 +110,7 @@ def qntoken(request):
 
 
 def login_view(request):
-    return render(request,'adminlte/login.html')
+    return render(request, 'adminlte/login.html')
 
 
 @login_require
@@ -118,7 +120,7 @@ def backed_index(request):
 
 
 class BannerList(View):
-    '''轮播图管理,采用restful风格'''
+    '''轮播图管理'''
     def get(self, request):
         '''返回轮播图管理界面'''
         banners = Banner.objects.filter(is_del=0)
@@ -140,7 +142,8 @@ class BannerView(View):
         banner = Banner.objects.get(pk=banner_id)
         if not banner:
             return restful.params_error(message='轮播图不存在')
-        return
+        banner_serializer = BannerSerializer(banner, many=True)
+        return restful.ok(data=banner_serializer.data)
 
     def put(self, request, banner_id):
         '''修改轮播图'''
@@ -188,7 +191,13 @@ class NewsListView(View):
     '''新闻列表'''
     def get(self, request):
         page = int(request.GET.get('page', 1))
+        start = request.GET.get('start_time')
+        end = request.GET.get('end_time')
+        title = request.GET.get('title')
+        category = request.GET.get('category')
         newes = News.objects.select_related('category', 'author').all()
+        if start or end:
+            start_date = datetime.strftime(start, '%Y/%m/%D')
         paginator = Paginator(newes, 5)
         try:
             page_obj = paginator.page(page)
