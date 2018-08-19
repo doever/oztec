@@ -24,28 +24,44 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-head"  style="margin-top: 15px;margin-left: 15px;">
-                    <form action="" class="form-inline">
+                    <form action="" class="form-inline" method="get">
                         <div class="form-group">
                             <label>时间:</label>
-                            <input type="date" name="start_time" class="form-control" readonly>
+                            {% if start %}
+                                <input type="date" name="start_time" class="form-control" value="{{ start }}" readonly>
+                            {% else %}
+                                <input type="date" name="start_time" class="form-control" readonly>
+                            {% endif %}
                             <span>-</span>
-                            <input type="date" name="end_time" class="form-control" readonly>
+                            {% if end %}
+                                <input type="date" name="end_time" class="form-control" value="{{ end }}" readonly>
+                            {% else %}
+                                <input type="date" name="end_time" class="form-control" readonly>
+                            {% endif %}
                         </div>
                         <div class="form-group" style="margin-left: 15px;">
                             <label>标题:</label>
-                            <input type="text" name="title" class="form-control">
+                            {% if title %}
+                                <input type="text" name="title" value="{{ title }}" class="form-control">
+                            {% else %}
+                                <input type="text" name="title" class="form-control">
+                            {% endif %}
                         </div>
                         <div class="form-group" style="margin-left: 15px;">
                             <label>分类</label>
                             <select name="categoty" class="form-control">
                                 <option value="0">所有分类</option>
                                 {% for category in categories %}
-                                    <option value="{{ category.id }}">{{ category.name }}</option>
+                                    {% if category.id == category_id %}
+                                        <option value="{{ category.id }}" selected>{{ category.name }}</option>
+                                    {% else %}
+                                        <option value="{{ category.id }}">{{ category.name }}</option>
+                                    {% endif %}
                                 {% endfor %}
                             </select>
                         </div>
                     <div class="form-group" style="margin-left: 15px;">
-                        <input type="button" value="查询" class="btn btn-primary">
+                        <input type="submit" value="查询" class="btn btn-primary">
                         <input type="reset" value="清空" class="btn btn-primary">
                     </div>
                     </form>
@@ -83,12 +99,12 @@
                     <ul class="pagination pull-right">
                         {#上一页#}
                         {% if page_obj.has_previous %}
-                            <li><a href="?page={{ page_obj.previous_page_number }}">上一页</a></li>
+                            <li><a href="?{{ url_query }}&page={{ page_obj.previous_page_number }}">上一页</a></li>
                         {% else %}
                             <li class="disabled"><a href="javascript:void(0);">上一页</a></li>
                         {% endif %}
                         {% if left_has_more %}
-                            <li><a href="?page=1">1</a></li>
+                            <li><a href="?{{ url_query }}&page=1">1</a></li>
                             <li><a href="javascript:void(0);">...</a></li>
                         {% endif %}
                         {#左边页#}

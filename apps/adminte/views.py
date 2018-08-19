@@ -19,8 +19,60 @@ from .models import Banner
 from .serializers import BannerSerializer
 
 
+class BannerList(View):
+    '''轮播图管理'''
+    def get(self, request):
+        '''返回轮播图管理界面'''
+        banners = Banner.objects.filter(is_del=0)
+        return render(request, 'adminlte/banner.html', context={'banners': banners})
+
+    def post(self, request):
+        '''添加轮播图'''
+        form = AddBannerFrom(request.POST)
+        if form.is_valid():
+            form.save()
+            # Banner.objects.create(link_url=link_url, position=position, banner_url=banner_url)
+        else:
+            return restful.params_error(form.get_first_error())
+        return restful.ok()
+
+
+class BannerView(View):
+    def get(self, request, banner_id):
+        banner = Banner.objects.get(pk=banner_id)
+        if not banner:
+            return restful.params_error(message='轮播图不存在')
+        banner_serializer = BannerSerializer(banner, many=True)
+        return restful.ok(data=banner_serializer.data)
+
+    def put(self, request, banner_id):
+        '''修改轮播图'''
+        qd = QueryDict(request.body)
+        put_dict = {k: v[0] if len(v) == 1 else v for k, v in qd.lists()}
+        banner = Banner.objects.get(pk=banner_id)
+        if not banner:
+            return restful.params_error(message='轮播图不存在')
+        position = put_dict.get('position')
+        link_url = put_dict.get('link_url')
+        # Banner.objects.filter(pk=banner_id).update(position=position, link_url=link_url)
+        banner.position = position
+        banner.link_url = link_url
+        banner.save()
+        return restful.ok()
+
+    def delete(self, request, banner_id):
+        '''删除轮播图'''
+        banner = Banner.objects.get(pk=banner_id)
+        if not banner:
+            return restful.params_error(message='轮播图不存在')
+        banner.is_del = 1
+        banner.save()
+        return restful.ok()
+
+
 class WriteNewsView(View):
     def get(self, request):
+        '''获取发布新闻页面'''
         categorys = NewsCategory.objects.all()
         context = {
             'categorys': categorys
@@ -28,6 +80,7 @@ class WriteNewsView(View):
         return render(request, 'adminlte/write_news.html', context=context)
 
     def post(self, request):
+        '''发布新闻'''
         form = WriteNewsForm(request.POST)
         if form.is_valid():
             title = form.cleaned_data.get('title')
@@ -119,74 +172,6 @@ def backed_index(request):
     return render(request, 'adminlte/index.html')
 
 
-class BannerList(View):
-    '''轮播图管理'''
-    def get(self, request):
-        '''返回轮播图管理界面'''
-        banners = Banner.objects.filter(is_del=0)
-        return render(request, 'adminlte/banner.html', context={'banners': banners})
-
-    def post(self, request):
-        '''添加轮播图'''
-        form = AddBannerFrom(request.POST)
-        if form.is_valid():
-            form.save()
-            # Banner.objects.create(link_url=link_url, position=position, banner_url=banner_url)
-        else:
-            return restful.params_error(form.get_first_error())
-        return restful.ok()
-
-
-class BannerView(View):
-    def get(self, request, banner_id):
-        banner = Banner.objects.get(pk=banner_id)
-        if not banner:
-            return restful.params_error(message='轮播图不存在')
-        banner_serializer = BannerSerializer(banner, many=True)
-        return restful.ok(data=banner_serializer.data)
-
-    def put(self, request, banner_id):
-        '''修改轮播图'''
-        qd = QueryDict(request.body)
-        put_dict = {k: v[0] if len(v) == 1 else v for k, v in qd.lists()}
-        banner = Banner.objects.get(pk=banner_id)
-        if not banner:
-            return restful.params_error(message='轮播图不存在')
-        position = put_dict.get('position')
-        link_url = put_dict.get('link_url')
-        # Banner.objects.filter(pk=banner_id).update(position=position, link_url=link_url)
-        banner.position = position
-        banner.link_url = link_url
-        banner.save()
-        return restful.ok()
-
-    def delete(self, request, banner_id):
-        '''删除轮播图'''
-        banner = Banner.objects.get(pk=banner_id)
-        if not banner:
-            return restful.params_error(message='轮播图不存在')
-        banner.is_del = 1
-        banner.save()
-        return restful.ok()
-
-
-# def banner(request):
-#     '''返回轮播图管理界面'''
-#     banners = Banner.objects.filter(is_del=0)
-#     return render(request, 'adminlte/banner.html', context={'banners': banners})
-#
-#
-# def add_banner(request):
-#     '''添加轮播图'''
-#     form = AddBannerFrom(request.POST)
-#     if form.is_valid():
-#         form.save()
-#         # Banner.objects.create(link_url=link_url, position=position, banner_url=banner_url)
-#     else:
-#         return restful.params_error(form.get_first_error())
-#     return restful.ok()
-
-
 class NewsListView(View):
     '''新闻列表'''
     def get(self, request):
@@ -194,10 +179,16 @@ class NewsListView(View):
         start = request.GET.get('start_time')
         end = request.GET.get('end_time')
         title = request.GET.get('title')
-        category = request.GET.get('category')
+        category_id = int(request.GET.get('category', 0) or 0)
         newes = News.objects.select_related('category', 'author').all()
         if start or end:
-            start_date = datetime.strftime(start, '%Y/%m/%D')
+            start_date = datetime.strftime(start, '%Y/%m/%d') if start else datetime(year=2018, month=1, day=1)
+            end_date = datetime.strftime(end, '%Y/%m/%d') if end else datetime.today()
+            newes = newes.filter(pub_time__range=(start_date, end_date))
+        if title:
+            newes = newes.filter(title__icontains=title)
+        if category_id:
+            newes = newes.filter(category=category_id)
         paginator = Paginator(newes, 5)
         try:
             page_obj = paginator.page(page)
@@ -208,13 +199,24 @@ class NewsListView(View):
             'categories': NewsCategory.objects.all(),
             'newses': page_obj.object_list,
             'paginator': paginator,
-            'page_obj': page_obj
+            'page_obj': page_obj,
+            'start': start,
+            'end': end,
+            'title': title,
+            'category_id': category_id,
+            'url_query': parse.urlencode({
+                'start_time': start or '',
+                'end_time': end or '',
+                'title': title or '',
+                'category': category_id or ''
+            })
         }
-        context.update(context_data)
+        # context.update(context_data)
+        context = {**context, **context_data}
         return render(request, "adminlte/news_list.html", context=context)
 
     def get_pagination_data(self, paginator, page_obj, arround_page=2):
-        '''分页算法'''
+        '''分页'''
         current_page = page_obj.number
         num_pages = paginator.num_pages
         left_has_more = False
