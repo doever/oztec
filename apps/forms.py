@@ -3,7 +3,7 @@ import json
 
 
 class FormMiXin(object):
-    def get_errors(self):
+    def get_errors(self) -> dict:
         if hasattr(self,'errors'):
             errors = self.errors.get_json_data()
             new_errors = {}
@@ -13,11 +13,11 @@ class FormMiXin(object):
                     messages.append(message['message'])
                 new_errors[key] = messages
             return new_errors
-        else:
-            return {}
+
+        return {}
 
     # 取第一个错误
-    def get_first_error(self):
+    def get_first_error(self) -> str:
         if hasattr(self, 'errors'):
             errors = self.errors.as_json()
             errors = json.loads(errors)
@@ -26,4 +26,6 @@ class FormMiXin(object):
             key = list(errors.keys())[0]
             first_error = sorted(errors[key][0].items())[1][1]
             return first_error
+
+        return ''
 

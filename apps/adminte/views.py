@@ -13,6 +13,7 @@ from django.core.paginator import Paginator
 from apps.news.models import NewsCategory
 from utils import restful, login_require
 from utils.login_require import login_require
+from utils.pagintors import PaginatorMiXin
 from .forms import WriteNewsForm, AddBannerFrom
 from apps.news.models import News
 from .models import Banner
@@ -194,7 +195,7 @@ class NewsListView(View):
             page_obj = paginator.page(page)
         except:
             return render(request, "404.html")
-        context_data = self.get_pagination_data(paginator, page_obj)
+        context_data = PaginatorMiXin.get_pagination_data(paginator, page_obj)
         context = {
             'categories': NewsCategory.objects.all(),
             'newses': page_obj.object_list,
@@ -214,29 +215,4 @@ class NewsListView(View):
         # context.update(context_data)
         context = {**context, **context_data}
         return render(request, "adminlte/news_list.html", context=context)
-
-    def get_pagination_data(self, paginator, page_obj, arround_page=2):
-        '''分页'''
-        current_page = page_obj.number
-        num_pages = paginator.num_pages
-        left_has_more = False
-        right_has_more = False
-        if current_page <= arround_page+2:
-            left_pages = range(1, current_page)
-        else:
-            left_has_more = True
-            left_pages = range(current_page-arround_page, current_page)
-        if current_page >= num_pages-arround_page-1:
-            right_pages = range(current_page+1, num_pages+1)
-        else:
-            right_has_more = True
-            right_pages = range(current_page+1, current_page+arround_page+1)
-        return {
-            "current_page": current_page,
-            "left_pages": left_pages,
-            "right_pages": right_pages,
-            "left_has_more": left_has_more,
-            "right_has_more": right_has_more,
-            "num_pages": num_pages
-        }
 
