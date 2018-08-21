@@ -12,7 +12,7 @@ class WriteNewsForm(forms.ModelForm,FormMiXin):
 
     class Meta:
         model = News
-        exclude = ['category','author','pub_time']
+        exclude = ['category', 'author', 'pub_time']
 
 
 class AddBannerFrom(forms.ModelForm, FormMiXin):

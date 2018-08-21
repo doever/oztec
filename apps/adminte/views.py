@@ -96,6 +96,22 @@ class WriteNewsView(View):
             return restful.params_error(message=form.get_errors())
 
 
+class NewsManageView(View):
+    def get(self, request, news_id):
+        news = News.objects.get(pk=news_id)
+        categorys = NewsCategory.objects.all()
+        if not news:
+            return render(request, '404.html')
+        context = {
+            'news': news,
+            'categorys': categorys
+        }
+        return render(request, 'adminlte/write_news.html', context=context)
+
+    def put(self, request):
+        ...
+
+
 class NewsCategoryView(View):
     def get(self, request):
         categorys = NewsCategory.objects.all()

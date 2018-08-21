@@ -103,10 +103,10 @@ DATABASES = {
 }
 
 CACHES = {
-    'default':{
-        'BACKEND':'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION':'127.0.0.1:11211',
-        # 'KEY_FUNCTION':lambda key,key_prefix,version:"django:"+key
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+        # 'KEY_FUNCTION': lambda key,key_prefix,version:"django:"+key
     }
 }
 
@@ -149,25 +149,25 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR,'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'front', 'dist')
 ]
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 UEDITOR_UPLOAD_TO_SERVER = True
-UEDITOR_UPLOAD_PATH = os.path.join(MEDIA_ROOT,'news_photo')
-UEDITOR_CONFIG_PATH = os.path.join(BASE_DIR,'front','dist','ueditor','config.json')
+UEDITOR_UPLOAD_PATH = os.path.join(MEDIA_ROOT, 'news_photo')
+UEDITOR_CONFIG_PATH = os.path.join(BASE_DIR, 'front', 'dist', 'ueditor', 'config.json')
 
 NEWS_COUNT = 2
 
 # tool-bar setting
 INTERNAL_IPS = ['127.0.0.1']
 DEBUG_TOOLBAR_CONFIG = {
-    'JQUERY_URL':''
+    'JQUERY_URL': ''
 }
 
 ARROUND_PAGE = 2
