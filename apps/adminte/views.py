@@ -108,8 +108,28 @@ class NewsManageView(View):
         }
         return render(request, 'adminlte/write_news.html', context=context)
 
-    def put(self, request):
-        ...
+    def put(self, request, news_id):
+        qd = QueryDict(request.body)
+        put_dict = {k: v[0] if len(v) == 1 else v for k, v in qd.lists()}
+        form = WriteNewsForm(put_dict)
+        if form.is_valid():
+            title = form.cleaned_data.get('title')
+            desc = form.cleaned_data.get('desc')
+            thumbnail = form.cleaned_data.get('thumbnail')
+            content = form.cleaned_data.get('content')
+            category_id = form.cleaned_data.get('category')
+            try:
+                category = NewsCategory.objects.get(pk=category_id)
+                News.objects.filter(pk=news_id).updata(title=title, desc=desc, thumbnail=thumbnail, content=content, category=category, author=request.user)
+            except Exception as err:
+                print(err)
+                return restful.server_error(message="服务器内部错误")
+            else:
+                return restful.ok()
+
+    def delete(self, request, news_id):
+        qd = QueryDict(request.body)
+        delete_dict = {k: v[0] if len(v) == 1 else v for k, v in qd.lists()}
 
 
 class NewsCategoryView(View):

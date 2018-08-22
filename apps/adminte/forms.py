@@ -7,7 +7,7 @@ from .models import Banner
 from apps.forms import FormMiXin
 
 
-class WriteNewsForm(forms.ModelForm,FormMiXin):
+class WriteNewsForm(forms.ModelForm, FormMiXin):
     category = forms.IntegerField()
 
     class Meta:
