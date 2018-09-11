@@ -3,11 +3,11 @@ from io import BytesIO
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import permission_required
 from django.views.decorators.http import require_POST
-from django.http import HttpResponse,JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.core.cache import cache
-from django.shortcuts import render,redirect,reverse
+from django.shortcuts import render, redirect, reverse
 
-from .forms import LoginForm,RegisterForm
+from .forms import LoginForm, RegisterForm
 from apps.ozauth.models import User
 from utils.captcha.ozcaptcha import Captcha
 from utils import restful
@@ -61,9 +61,15 @@ def img_captcha(request):
 def sms_code(request):
     telephone = request.GET.get('telephone')
     code = Captcha.gene_text()
-    aliyunsms.send_sms(phone_numbers=telephone, code=code)
-    cache.set(telephone, code.lower(), 5*60)
-    return restful.ok()
+    try:
+        aliyunsms.send_sms(phone_numbers=telephone, code=code)
+        cache.set(telephone, code.lower(), 5*60)
+    except Exception as err:
+        print(f'{err}')
+        error_mes = f'发生错误{err}'
+        return restful.server_error(message=error_mes)
+    else:
+        return restful.ok()
 
 
 @require_POST
@@ -81,6 +87,6 @@ def register(request):
 
 
 def test_cache(request):
-    cache.set('username', 'chilo',60)
+    cache.set('username', 'chilo', 60)
     username = cache.get('username')
     return HttpResponse(username)

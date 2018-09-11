@@ -230,7 +230,7 @@ Auth.prototype.listenSmsCaptchaEvent = function(){
             console.log(telephone);
             window.messageBox.showInfo("请输入手机号");
         }else{
-            window.messageBox.showError("请输入合法的手机号啊");
+            window.messageBox.showError("请输入合法的手机号");
         }
     })
 };
