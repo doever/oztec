@@ -4,10 +4,10 @@ import json
 
 class FormMiXin(object):
     def get_errors(self) -> dict:
-        if hasattr(self,'errors'):
+        if hasattr(self, 'errors'):
             errors = self.errors.get_json_data()
             new_errors = {}
-            for key,message_dicts in errors.items():
+            for key, message_dicts in errors.items():
                 messages = []
                 for message in message_dicts:
                     messages.append(message['message'])
