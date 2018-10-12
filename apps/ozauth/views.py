@@ -47,7 +47,7 @@ def logout_view(request):
 
 # 生成验证码
 def img_captcha(request):
-    text,image = Captcha().gene_code()
+    text, image = Captcha().gene_code()
     out = BytesIO()
     image.save(out, 'png')
     out.seek(0)
