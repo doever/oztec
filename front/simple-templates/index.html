@@ -3,8 +3,243 @@
 <head>
     <meta charset="UTF-8">
     <title>后台管理系统</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        a{
+            text-decoration: none;
+        }
+        .header{
+            height: 50px;
+            font-family: 'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif;
+            font-weight: 400;
+            overflow: hidden;
+            width: 100%;
+            background-color: #3c8dbc;
+        }
+        .logo-group{
+            width: 230px;
+            height: 50px;
+            padding-left: 15px;
+            padding-right: 15px;
+            box-sizing: border-box;
+            background-color: #367fa9;
+            float: left;
+        }
+        .logo-group .logo-lg{
+            color: #FFF;
+            font-size: 20px;
+            line-height: 50px;
+            text-align: center;
+            font-weight: 300;
+        }
+        .nav-group{
+            float: left;
+            height: 50px;
+            overflow: hidden;
+            width: 80%;
+            {#padding-right: 15px;#}
+            box-sizing: border-box;
+        }
+        .nav-group .sidebar-toggle{
+            float: left;
+            display: inline-block;
+            width: 42px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+        }
+        .nav-group .user-box{
+            float: right;
+            box-sizing: border-box;
+            {#width: 160px;#}
+            height: 50px;
+        }
+        .nav-group .user-box .dropdown-toggle{
+            display: inline-block;
+            padding: 15px;
+            height: 50px;
+            box-sizing: border-box;
+        }
+        .nav-group .user-box .dropdown-toggle img{
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            float: left;
+            margin-right: 3px;
+        }
+        .nav-group .user-box .dropdown-toggle span{
+            float: right;
+            box-sizing: border-box;
+            color:#FFF;
+            margin-top: 3px;
+        }
+        .sidebar{
+            width: 230px;
+            height: 300px;
+            background-color: #333;
+        }
+        .main-body{
+            width: 85%;
+            height: 300px;
+            background-color: #ECF0F5;
+        }
+        .user-pannel{
+            width: 230px;
+            height: 65px;
+            overflow: hidden;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+        .user-pannel .user-image{
+            width: 45px;
+            height: 45px;
+            float: left;
+            margin-right: 10px;
+        }
+        .user-pannel .user-image img{
+            height: 100%;
+            width: 100%;
+            border-radius: 50%;
+        }
+        .user-pannel .user-info{
+            float: left;
+            color:white;
+        }
+        .user-pannel .user-info a{
+            color: #FFF;
+            font-size: 12px;
+        }
+        .user-pannel .user-info a p{
+            font-size: 18px;
+        }
+        .user-pannel .user-info i{
+        {#    icon#}
+        }
+        .search-menu{
+            width: 230px;
+            padding: 6px 12px;
+            box-sizing: border-box;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .search-menu input{
+            height: 35px;
+            {#width: 170px;#}
+            outline: none;
+            background-color: #666;
+            border: none;
+            float: left;
+            box-sizing: border-box;
+            text-indent: 1em;
+        }
+        .search-menu button{
+            width: 37px;
+            height: 35px;
+            float: left;
+            border: none;
+            background-color: #666;
+            box-sizing: border-box;
+        }
+        .sidebar-menu{
+
+        }
+        .sidebar-menu .head a span{
+            height: 37px;
+            width: 230px;
+            padding: 10px 15px;
+            color: #4b646f;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        .sidebar-menu .tree-view{
+
+        }
+        .sidebar-menu .tree-view a{
+            display: inline-block;
+            height: 45px;
+            width: 230px;
+            box-sizing: border-box;
+            padding: 6px 12px;
+            font-size: 16px;
+            color:#CCC;
+        }
+    </style>
 </head>
 <body>
-
+    <div class="header">
+        <div class="logo-group">
+            <span class="logo-mini" hidden>OZT</span>
+            <span class="logo-lg">OZTEC | 管理系统</span>
+        </div>
+        <div class="nav-group">
+            <a href="" class="sidebar-toggle">丨丨</a>
+            <div class="user-box">
+                <a href="" class="dropdown-toggle">
+                    <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1547980979587&di=fd99852a71874b5b438b783e72d62aeb&imgtype=0&src=http%3A%2F%2Fimg4.duitang.com%2Fuploads%2Fitem%2F201507%2F01%2F20150701073503_N58Ma.jpeg" alt="">
+                    <span>Alexa</span>
+                </a>
+                <ul hidden>
+                    <li class="user-head">
+                        <img src="" alt="">
+                        <p></p>
+                    </li>
+                    <li class="user-footer"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <div class="sidebar">
+            <div class="user-pannel">
+                <div class="user-image"><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1547980979587&di=fd99852a71874b5b438b783e72d62aeb&imgtype=0&src=http%3A%2F%2Fimg4.duitang.com%2Fuploads%2Fitem%2F201507%2F01%2F20150701073503_N58Ma.jpeg" alt=""></div>
+                <div class="user-info">
+                    <p>Alexander</p>
+                    <a href="">
+                        <i></i>Online
+                    </a>
+                </div>
+            </div>
+            <div class="search-menu">
+                <input type="text">
+                <button>搜索</button>
+            </div>
+            <ul class="sidebar-menu">
+                <li class="head">
+                    <a href="">
+                        <i></i>
+                        <span>首页</span>
+                        <i></i>
+                    </a>
+                    <ul class="treeview-menu" style="display: none">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </li>
+                <li class="tree-view">
+                    <a href="">
+                        <i></i>
+                        <span>新闻模块</span>
+                    </a>
+                </li>
+                <li class="tree-view">
+                    <a href="">
+                        <i></i>
+                        <span>用户管理</span>
+                    </a>
+                </li>
+                <li class="tree-view">
+                    <a href="">
+                        <i></i>
+                        <span>轮播图</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="main-body"></div>
+    </div>
 </body>
 </html>
